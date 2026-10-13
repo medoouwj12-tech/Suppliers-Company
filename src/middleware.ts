@@ -17,9 +17,12 @@ export default withAuth(
       }
     }
 
-    // إعادة التوجيه بعد تسجيل الدخول
+    // إعادة التوجيه بعد تسجيل الدخول من الصفحة الرئيسية
     if (pathname === '/') {
-      if (token?.role === 'ADMIN') {
+      if (!token) {
+        return NextResponse.redirect(new URL('/login', req.url))
+      }
+      if (token.role === 'ADMIN') {
         return NextResponse.redirect(new URL('/dashboard', req.url))
       } else {
         return NextResponse.redirect(new URL('/rep/dashboard', req.url))
@@ -29,14 +32,24 @@ export default withAuth(
     return NextResponse.next()
   },
   {
+    secret: process.env.NEXTAUTH_SECRET || 'supplypro-erp-super-secret-key-production-ready-2026-very-secure',
     callbacks: {
       authorized: ({ token, req }) => {
         const pathname = req.nextUrl.pathname
-        // السماح بالوصول لصفحة تسجيل الدخول دون تسجيل
-        if (pathname === '/login') return true
-        // باقي الصفحات تحتاج تسجيل دخول
+        // السماح بالوصول لصفحة تسجيل الدخول ومسارات المصادقة دون حجب
+        if (
+          pathname === '/login' ||
+          pathname.startsWith('/api/auth') ||
+          pathname.startsWith('/_next') ||
+          pathname === '/favicon.ico'
+        ) {
+          return true
+        }
         return !!token
       },
+    },
+    pages: {
+      signIn: '/login',
     },
   }
 )

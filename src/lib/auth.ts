@@ -117,11 +117,10 @@ export const authOptions: NextAuthOptions = {
   },
   pages: {
     signIn: '/login',
-    error: '/login',
   },
   session: {
     strategy: 'jwt',
     maxAge: 8 * 60 * 60, // 8 ساعات
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET || 'supplypro-erp-super-secret-key-production-ready-2026-very-secure',
 }
