@@ -1,0 +1,619 @@
+// SupplyPro ERP - Prisma Schema (SQLite for local environment / zero-config)
+// For PostgreSQL production deployment, use prisma/schema.postgresql.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+// ==================== المستخدمون والصلاحيات ====================
+
+model User {
+  id           String    @id @default(cuid())
+  username     String    @unique
+  email        String?   @unique
+  name         String
+  passwordHash String
+  role         String    @default("REPRESENTATIVE") // ADMIN | REPRESENTATIVE
+  status       String    @default("ACTIVE")         // ACTIVE | INACTIVE | SUSPENDED
+  phone        String?
+  avatar       String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  lastLoginAt  DateTime?
+
+  // علاقات
+  representative   Representative?
+  auditLogs        AuditLog[]
+  stockMovements   StockMovement[]
+  salesInvoices    SalesInvoice[]    @relation("CreatedBy")
+  approvedInvoices SalesInvoice[]    @relation("ApprovedBy")
+  payments         Payment[]         @relation("RecordedBy")
+  cashHandovers    CashHandover[]    @relation("ReceivedBy")
+  deliveryOrders   DeliveryOrder[]   @relation("CreatedBy")
+  purchaseInvoices PurchaseInvoice[] @relation("CreatedBy")
+  returns          Return[]          @relation("CreatedBy")
+  expenses         Expense[]         @relation("CreatedBy")
+
+  @@map("users")
+}
+
+// ==================== إعدادات الشركة ====================
+
+model CompanySettings {
+  id                 String   @id @default(cuid())
+  name               String   @default("SupplyPro ERP")
+  nameAr             String   @default("سوبلاي برو")
+  address            String?
+  phone              String?
+  email              String?
+  logo               String?
+  taxNumber          String?
+  currency           String   @default("EGP")
+  currencySymbol     String   @default("ج.م")
+  allowNegativeStock Boolean  @default(false)
+  defaultCreditDays  Int      @default(30)
+  invoicePrefix      String   @default("INV")
+  receiptPrefix      String   @default("REC")
+  deliveryPrefix     String   @default("DEL")
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@map("company_settings")
+}
+
+// ==================== المخازن ====================
+
+model Warehouse {
+  id        String   @id @default(cuid())
+  code      String   @unique
+  name      String
+  address   String?
+  phone     String?
+  status    String   @default("ACTIVE") // ACTIVE | INACTIVE
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // علاقات
+  stockBalances    StockBalance[]
+  stockMovements   StockMovement[]
+  representatives  Representative[]
+  deliveryOrders   DeliveryOrder[]
+  purchaseInvoices PurchaseInvoice[]
+  transfers        StockTransfer[]   @relation("FromWarehouse")
+  transfersTo      StockTransfer[]   @relation("ToWarehouse")
+  returnItems      ReturnItem[]
+
+  @@map("warehouses")
+}
+
+// ==================== تصنيفات المنتجات ====================
+
+model ProductCategory {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  nameAr    String?
+  icon      String?
+  color     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  products Product[]
+
+  @@map("product_categories")
+}
+
+// ==================== المنتجات ====================
+
+model Product {
+  id                 String   @id @default(cuid())
+  sku                String   @unique
+  name               String
+  nameAr             String?
+  categoryId         String?
+  brand              String?
+  image              String?
+  purchasePrice      Float    @default(0) // سعر الشراء
+  sellingPriceCarton Float    @default(0) // سعر بيع الكرتونة
+  sellingPriceUnit   Float    @default(0) // سعر بيع الوحدة
+  unitsPerCarton     Int      @default(1) // عدد الوحدات داخل الكرتونة
+  unitName           String   @default("وحدة")
+  cartonName         String   @default("كرتونة")
+  minStockAlert      Int      @default(10) // بالوحدات
+  status             String   @default("ACTIVE") // ACTIVE | INACTIVE
+  notes              String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  category                ProductCategory?          @relation(fields: [categoryId], references: [id])
+  stockBalances           StockBalance[]
+  stockMovements          StockMovement[]
+  salesInvoiceItems       SalesInvoiceItem[]
+  purchaseInvoiceItems    PurchaseInvoiceItem[]
+  representativeInventory RepresentativeInventory[]
+  returnItems             ReturnItem[]
+  deliveryOrderItems      DeliveryOrderItem[]
+  stockTransferItems      StockTransferItem[]
+
+  @@map("products")
+}
+
+// ==================== أرصدة المخزون ====================
+
+model StockBalance {
+  id          String   @id @default(cuid())
+  warehouseId String
+  productId   String
+  quantity    Int      @default(0) // بالوحدات الأساسية
+  updatedAt   DateTime @updatedAt
+
+  warehouse Warehouse @relation(fields: [warehouseId], references: [id])
+  product   Product   @relation(fields: [productId], references: [id])
+
+  @@unique([warehouseId, productId])
+  @@map("stock_balances")
+}
+
+// ==================== حركة المخزون ====================
+
+model StockMovement {
+  id             String   @id @default(cuid())
+  warehouseId    String
+  productId      String
+  type           String   // PURCHASE_IN, SALE_OUT, DELIVERY_OUT, RETURN_FROM_REP, RETURN_FROM_MERCHANT, TRANSFER_IN, TRANSFER_OUT, DAMAGE, ADJUSTMENT_IN, ADJUSTMENT_OUT, INITIAL_STOCK
+  quantity       Int      // موجب = زيادة، سالب = نقص
+  quantityBefore Int
+  quantityAfter  Int
+  referenceType  String?
+  referenceId    String?
+  referenceNo    String?
+  userId         String?
+  notes          String?
+  createdAt      DateTime @default(now())
+
+  warehouse Warehouse @relation(fields: [warehouseId], references: [id])
+  product   Product   @relation(fields: [productId], references: [id])
+  user      User?     @relation(fields: [userId], references: [id])
+
+  @@index([warehouseId, productId])
+  @@index([createdAt])
+  @@map("stock_movements")
+}
+
+// ==================== المندوبون ====================
+
+model Representative {
+  id           String   @id @default(cuid())
+  userId       String   @unique
+  employeeCode String   @unique
+  phone        String?
+  warehouseId  String?  // المخزن المخصص
+  hireDate     DateTime @default(now())
+  notes        String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user           User                      @relation(fields: [userId], references: [id])
+  warehouse      Warehouse?                @relation(fields: [warehouseId], references: [id])
+  inventory      RepresentativeInventory[]
+  deliveryOrders DeliveryOrder[]
+  salesInvoices  SalesInvoice[]
+  merchants      Merchant[]
+  cashHandovers  CashHandover[]
+  payments       Payment[]
+
+  @@map("representatives")
+}
+
+// ==================== عهدة المندوب ====================
+
+model RepresentativeInventory {
+  id               String   @id @default(cuid())
+  representativeId String
+  productId        String
+  quantity         Int      @default(0) // بالوحدات الأساسية
+  updatedAt        DateTime @updatedAt
+
+  representative Representative @relation(fields: [representativeId], references: [id])
+  product        Product        @relation(fields: [productId], references: [id])
+
+  @@unique([representativeId, productId])
+  @@map("representative_inventory")
+}
+
+// ==================== أذونات التسليم للمندوبين ====================
+
+model DeliveryOrder {
+  id               String    @id @default(cuid())
+  orderNo          String    @unique
+  representativeId String
+  warehouseId      String
+  status           String    @default("PENDING") // PENDING | APPROVED | CANCELLED
+  deliveryDate     DateTime  @default(now())
+  approvedAt       DateTime?
+  approvedById     String?
+  createdById      String
+  notes            String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  representative Representative      @relation(fields: [representativeId], references: [id])
+  warehouse      Warehouse           @relation(fields: [warehouseId], references: [id])
+  createdBy      User                @relation("CreatedBy", fields: [createdById], references: [id])
+  items          DeliveryOrderItem[]
+
+  @@index([representativeId])
+  @@map("delivery_orders")
+}
+
+model DeliveryOrderItem {
+  id              String @id @default(cuid())
+  deliveryOrderId String
+  productId       String
+  quantity        Int    // بالوحدات الأساسية
+
+  deliveryOrder DeliveryOrder @relation(fields: [deliveryOrderId], references: [id], onDelete: Cascade)
+  product       Product       @relation(fields: [productId], references: [id])
+
+  @@map("delivery_order_items")
+}
+
+// ==================== الموردون ====================
+
+model Supplier {
+  id             String   @id @default(cuid())
+  code           String   @unique
+  name           String
+  contactPerson  String?
+  phone          String?
+  phone2         String?
+  email          String?
+  address        String?
+  taxNumber      String?
+  openingBalance Float    @default(0)
+  status         String   @default("ACTIVE") // ACTIVE | INACTIVE
+  notes          String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  purchaseInvoices PurchaseInvoice[]
+  payments         Payment[]
+
+  @@map("suppliers")
+}
+
+// ==================== فواتير المشتريات ====================
+
+model PurchaseInvoice {
+  id            String    @id @default(cuid())
+  invoiceNo     String    @unique
+  supplierId    String
+  warehouseId   String
+  status        String    @default("DRAFT")  // DRAFT | APPROVED | CANCELLED
+  paymentStatus String    @default("UNPAID") // UNPAID | PARTIAL | PAID
+  invoiceDate   DateTime  @default(now())
+  dueDate       DateTime?
+  subtotal      Float     @default(0)
+  discount      Float     @default(0)
+  tax           Float     @default(0)
+  total         Float     @default(0)
+  paidAmount    Float     @default(0)
+  approvedAt    DateTime?
+  createdById   String
+  notes         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  supplier  Supplier              @relation(fields: [supplierId], references: [id])
+  warehouse Warehouse             @relation(fields: [warehouseId], references: [id])
+  createdBy User                  @relation("CreatedBy", fields: [createdById], references: [id])
+  items     PurchaseInvoiceItem[]
+  payments  Payment[]
+
+  @@index([supplierId])
+  @@map("purchase_invoices")
+}
+
+model PurchaseInvoiceItem {
+  id                String @id @default(cuid())
+  purchaseInvoiceId String
+  productId         String
+  quantity          Int    // بالوحدات
+  unitPrice         Float  @default(0)
+  discount          Float  @default(0)
+  total             Float  @default(0)
+
+  purchaseInvoice PurchaseInvoice @relation(fields: [purchaseInvoiceId], references: [id], onDelete: Cascade)
+  product         Product         @relation(fields: [productId], references: [id])
+
+  @@map("purchase_invoice_items")
+}
+
+// ==================== التجار ====================
+
+model Merchant {
+  id               String   @id @default(cuid())
+  code             String   @unique
+  businessName     String
+  ownerName        String?
+  phone            String?
+  phone2           String?
+  email            String?
+  address          String?
+  area             String?
+  representativeId String?
+  openingBalance   Float    @default(0)
+  creditLimit      Float?
+  status           String   @default("ACTIVE") // ACTIVE | INACTIVE | BLOCKED
+  notes            String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  representative Representative? @relation(fields: [representativeId], references: [id])
+  salesInvoices  SalesInvoice[]
+  payments       Payment[]
+
+  @@index([representativeId])
+  @@map("merchants")
+}
+
+// ==================== فواتير المبيعات ====================
+
+model SalesInvoice {
+  id                  String    @id @default(cuid())
+  invoiceNo           String    @unique
+  merchantId          String
+  representativeId    String
+  status              String    @default("APPROVED") // DRAFT | APPROVED | CANCELLED
+  paymentStatus       String    @default("UNPAID")   // UNPAID | PARTIAL | PAID
+  paymentType         String    @default("CASH")     // CASH | CREDIT | PARTIAL | TRANSFER
+  invoiceDate         DateTime  @default(now())
+  dueDate             DateTime?
+  subtotal            Float     @default(0)
+  discount            Float     @default(0)
+  total               Float     @default(0)
+  paidAmount          Float     @default(0)
+  remainingAmount     Float     @default(0)
+  idempotencyKey      String?   @unique
+  approvedAt          DateTime?
+  approvedById        String?
+  cancelledAt         DateTime?
+  cancellationReason  String?
+  createdById         String
+  notes               String?
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+
+  merchant       Merchant           @relation(fields: [merchantId], references: [id])
+  representative Representative     @relation(fields: [representativeId], references: [id])
+  createdBy      User               @relation("CreatedBy", fields: [createdById], references: [id])
+  approvedBy     User?              @relation("ApprovedBy", fields: [approvedById], references: [id])
+  items          SalesInvoiceItem[]
+  payments       Payment[]
+  returns        Return[]
+
+  @@index([merchantId])
+  @@index([representativeId])
+  @@index([invoiceDate])
+  @@map("sales_invoices")
+}
+
+model SalesInvoiceItem {
+  id             String @id @default(cuid())
+  salesInvoiceId String
+  productId      String
+  quantity       Int    // بالوحدات الأساسية
+  unitPrice      Float  @default(0)
+  cartonPrice    Float  @default(0)
+  unitsPerCarton Int    @default(1)
+  discount       Float  @default(0)
+  total          Float  @default(0)
+
+  salesInvoice SalesInvoice @relation(fields: [salesInvoiceId], references: [id], onDelete: Cascade)
+  product      Product      @relation(fields: [productId], references: [id])
+
+  @@map("sales_invoice_items")
+}
+
+// ==================== المدفوعات والتحصيلات ====================
+
+model Payment {
+  id                String   @id @default(cuid())
+  receiptNo         String   @unique
+  direction         String   // IN | OUT
+  paymentType       String   @default("CASH") // CASH | BANK_TRANSFER | CHECK | OTHER
+  amount            Float    @default(0)
+  merchantId        String?
+  supplierId        String?
+  representativeId  String?
+  salesInvoiceId    String?
+  purchaseInvoiceId String?
+  paymentDate       DateTime @default(now())
+  recordedById      String
+  notes             String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  merchant        Merchant?        @relation(fields: [merchantId], references: [id])
+  supplier        Supplier?        @relation(fields: [supplierId], references: [id])
+  representative  Representative?  @relation(fields: [representativeId], references: [id])
+  salesInvoice    SalesInvoice?    @relation(fields: [salesInvoiceId], references: [id])
+  purchaseInvoice PurchaseInvoice? @relation(fields: [purchaseInvoiceId], references: [id])
+  recordedBy      User             @relation("RecordedBy", fields: [recordedById], references: [id])
+
+  @@index([merchantId])
+  @@index([representativeId])
+  @@index([paymentDate])
+  @@map("payments")
+}
+
+// ==================== تسليم المندوب للخزينة ====================
+
+model CashHandover {
+  id               String    @id @default(cuid())
+  handoverNo       String    @unique
+  representativeId String
+  amount           Float     @default(0)
+  status           String    @default("PENDING") // PENDING | CONFIRMED
+  handoverDate     DateTime  @default(now())
+  receivedById     String
+  confirmedAt      DateTime?
+  notes            String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  representative Representative @relation(fields: [representativeId], references: [id])
+  receivedBy     User           @relation("ReceivedBy", fields: [receivedById], references: [id])
+
+  @@index([representativeId])
+  @@map("cash_handovers")
+}
+
+// ==================== التحويلات بين المخازن ====================
+
+model StockTransfer {
+  id              String    @id @default(cuid())
+  transferNo      String    @unique
+  fromWarehouseId String
+  toWarehouseId   String
+  status          String    @default("PENDING") // PENDING | APPROVED | CANCELLED
+  transferDate    DateTime  @default(now())
+  approvedAt      DateTime?
+  notes           String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  fromWarehouse Warehouse           @relation("FromWarehouse", fields: [fromWarehouseId], references: [id])
+  toWarehouse   Warehouse           @relation("ToWarehouse", fields: [toWarehouseId], references: [id])
+  items         StockTransferItem[]
+
+  @@map("stock_transfers")
+}
+
+model StockTransferItem {
+  id              String @id @default(cuid())
+  stockTransferId String
+  productId       String
+  quantity        Int
+
+  stockTransfer StockTransfer @relation(fields: [stockTransferId], references: [id], onDelete: Cascade)
+  product       Product       @relation(fields: [productId], references: [id])
+
+  @@map("stock_transfer_items")
+}
+
+// ==================== المرتجعات ====================
+
+model Return {
+  id             String    @id @default(cuid())
+  returnNo       String    @unique
+  type           String    // FROM_MERCHANT | FROM_REPRESENTATIVE
+  status         String    @default("PENDING") // PENDING | APPROVED | CANCELLED
+  salesInvoiceId String?
+  returnDate     DateTime  @default(now())
+  totalValue     Float     @default(0)
+  approvedAt     DateTime?
+  createdById    String
+  notes          String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  salesInvoice SalesInvoice? @relation(fields: [salesInvoiceId], references: [id])
+  createdBy    User          @relation("CreatedBy", fields: [createdById], references: [id])
+  items        ReturnItem[]
+
+  @@index([type])
+  @@index([status])
+  @@map("returns")
+}
+
+model ReturnItem {
+  id          String  @id @default(cuid())
+  returnId    String
+  productId   String
+  warehouseId String?
+  quantity    Int
+  unitPrice   Float   @default(0)
+  total       Float   @default(0)
+  condition   String  @default("SELLABLE") // SELLABLE | DAMAGED | EXPIRED
+  notes       String?
+
+  return    Return     @relation(fields: [returnId], references: [id], onDelete: Cascade)
+  product   Product    @relation(fields: [productId], references: [id])
+  warehouse Warehouse? @relation(fields: [warehouseId], references: [id])
+
+  @@map("return_items")
+}
+
+// ==================== المصروفات ====================
+
+model ExpenseCategory {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+
+  expenses Expense[]
+
+  @@map("expense_categories")
+}
+
+model Expense {
+  id          String   @id @default(cuid())
+  expenseNo   String   @unique
+  categoryId  String?
+  amount      Float    @default(0)
+  description String?
+  expenseDate DateTime @default(now())
+  createdById String
+  notes       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  category  ExpenseCategory? @relation(fields: [categoryId], references: [id])
+  createdBy User             @relation("CreatedBy", fields: [createdById], references: [id])
+
+  @@map("expenses")
+}
+
+// ==================== سجل العمليات ====================
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String
+  action    String
+  entity    String
+  entityId  String?
+  oldValues String?  // JSON string
+  newValues String?  // JSON string
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([entity, entityId])
+  @@index([createdAt])
+  @@map("audit_logs")
+}
+
+// ==================== إشعارات النظام ====================
+
+model Notification {
+  id        String   @id @default(cuid())
+  title     String
+  message   String
+  type      String   @default("INFO") // WARNING | ERROR | INFO | SUCCESS
+  isRead    Boolean  @default(false)
+  userId    String?
+  link      String?
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@map("notifications")
+}
