@@ -7,31 +7,32 @@ import { cn } from '@/lib/utils';
 const buttonVariants = cva(
   [
     'inline-flex items-center justify-center gap-2',
-    'font-semibold rounded-lg transition-all duration-200',
+    'font-semibold rounded-xl transition-all duration-200',
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
     'disabled:pointer-events-none disabled:opacity-50',
     'select-none whitespace-nowrap',
+    'active:scale-[0.98]',
   ].join(' '),
   {
     variants: {
       variant: {
         default:
-          'bg-[#1e3a5f] text-white hover:bg-[#16304f] active:bg-[#0e2640] focus-visible:ring-[#1e3a5f]',
+          'bg-[#1e3a5f] text-white hover:bg-[#163050] active:bg-[#0e2640] focus-visible:ring-[#1e3a5f] shadow-[0_1px_3px_rgba(30,58,95,0.3)] hover:shadow-[0_2px_8px_rgba(30,58,95,0.35)]',
         secondary:
-          'bg-slate-100 text-slate-800 hover:bg-slate-200 active:bg-slate-300 focus-visible:ring-slate-400',
+          'bg-slate-100 text-slate-700 hover:bg-slate-200 active:bg-slate-300 focus-visible:ring-slate-400',
         outline:
-          'border-2 border-[#1e3a5f] text-[#1e3a5f] bg-transparent hover:bg-[#1e3a5f]/10 active:bg-[#1e3a5f]/20 focus-visible:ring-[#1e3a5f]',
+          'border-[1.5px] border-slate-300 text-slate-700 bg-white hover:border-slate-400 hover:bg-slate-50 active:bg-slate-100 focus-visible:ring-slate-400 shadow-[0_1px_2px_rgba(0,0,0,0.04)]',
         ghost:
-          'bg-transparent text-slate-700 hover:bg-slate-100 active:bg-slate-200 focus-visible:ring-slate-400',
+          'bg-transparent text-slate-600 hover:bg-slate-100 hover:text-slate-900 active:bg-slate-200 focus-visible:ring-slate-400',
         danger:
-          'bg-red-600 text-white hover:bg-red-700 active:bg-red-800 focus-visible:ring-red-500',
+          'bg-red-600 text-white hover:bg-red-700 active:bg-red-800 focus-visible:ring-red-500 shadow-[0_1px_3px_rgba(220,38,38,0.3)]',
         success:
-          'bg-emerald-600 text-white hover:bg-emerald-700 active:bg-emerald-800 focus-visible:ring-emerald-500',
+          'bg-emerald-600 text-white hover:bg-emerald-700 active:bg-emerald-800 focus-visible:ring-emerald-500 shadow-[0_1px_3px_rgba(5,150,105,0.3)]',
       },
       size: {
-        sm: 'h-8 px-3 text-xs rounded-md',
-        md: 'h-10 px-4 text-sm',
-        lg: 'h-12 px-6 text-base',
+        sm: 'h-8 px-3 text-[12px] rounded-lg',
+        md: 'h-10 px-4 text-[13px]',
+        lg: 'h-12 px-6 text-[14px]',
       },
     },
     defaultVariants: {

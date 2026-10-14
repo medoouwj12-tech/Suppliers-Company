@@ -85,18 +85,18 @@ function UserDropdown({ name, email }: UserDropdownProps) {
     <div className="relative">
       <button
         onClick={() => setOpen((p) => !p)}
-        className="flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="flex items-center gap-2.5 rounded-xl border border-slate-200/80 bg-white px-3 py-2 text-sm font-medium text-slate-700 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all hover:bg-slate-50 hover:border-slate-300/80 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06)]"
         aria-expanded={open}
         aria-haspopup="true"
       >
         <div
-          className="flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold text-white"
+          className="flex h-8 w-8 items-center justify-center rounded-lg text-xs font-bold text-white"
           style={{ backgroundColor: '#1e3a5f' }}
         >
           {name.charAt(0)}
         </div>
-        <span className="hidden sm:inline max-w-[120px] truncate">{name}</span>
-        <ChevronDown className={cn('h-4 w-4 transition-transform', open && 'rotate-180')} />
+        <span className="hidden sm:inline max-w-[120px] truncate text-[13px]">{name}</span>
+        <ChevronDown className={cn('h-4 w-4 text-slate-400 transition-transform duration-200', open && 'rotate-180')} />
       </button>
 
       {open && (
@@ -108,36 +108,38 @@ function UserDropdown({ name, email }: UserDropdownProps) {
             aria-hidden="true"
           />
           {/* Dropdown */}
-          <div className="absolute left-0 z-20 mt-2 w-52 origin-top-left rounded-xl border border-gray-100 bg-white py-1 shadow-lg">
+          <div className="absolute left-0 z-20 mt-2 w-56 origin-top-left rounded-2xl border border-slate-200/80 bg-white py-1.5 shadow-[0_8px_30px_rgba(0,0,0,0.12)] animate-scale-in">
             {/* User info header */}
-            <div className="border-b border-gray-100 px-4 py-3">
-              <p className="text-sm font-semibold text-gray-900 truncate">{name}</p>
+            <div className="border-b border-slate-100 px-4 py-3.5">
+              <p className="text-[13px] font-semibold text-slate-900 truncate">{name}</p>
               {email && (
-                <p className="text-xs text-gray-500 truncate">{email}</p>
+                <p className="text-[11px] text-slate-400 truncate mt-0.5">{email}</p>
               )}
             </div>
 
-            <button
-              onClick={handleProfile}
-              className="flex w-full items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50"
-            >
-              <User className="h-4 w-4 text-gray-400" />
-              الملف الشخصي
-            </button>
+            <div className="py-1">
+              <button
+                onClick={handleProfile}
+                className="flex w-full items-center gap-3 px-4 py-2.5 text-[13px] text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors"
+              >
+                <User className="h-4 w-4 text-slate-400" />
+                الملف الشخصي والإعدادات
+              </button>
 
-            <button
-              onClick={handleChangePassword}
-              className="flex w-full items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50"
-            >
-              <Lock className="h-4 w-4 text-gray-400" />
-              تغيير كلمة المرور
-            </button>
+              <button
+                onClick={handleChangePassword}
+                className="flex w-full items-center gap-3 px-4 py-2.5 text-[13px] text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors"
+              >
+                <Lock className="h-4 w-4 text-slate-400" />
+                تغيير كلمة المرور
+              </button>
+            </div>
 
-            <div className="my-1 border-t border-gray-100" />
+            <div className="my-1 border-t border-slate-100" />
 
             <button
               onClick={handleLogout}
-              className="flex w-full items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50"
+              className="flex w-full items-center gap-3 px-4 py-2.5 text-[13px] text-red-600 hover:bg-red-50 transition-colors"
             >
               <LogOut className="h-4 w-4" />
               تسجيل الخروج
@@ -162,12 +164,12 @@ function NotificationBell({ count }: NotificationBellProps) {
     <div className="relative">
       <button
         onClick={() => setOpen((p) => !p)}
-        className="relative rounded-lg border border-gray-200 bg-white p-2 text-gray-600 shadow-sm transition hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="relative rounded-xl border border-slate-200/80 bg-white p-2.5 text-slate-500 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all hover:bg-slate-50 hover:text-slate-700 hover:border-slate-300/80"
         aria-label={`الإشعارات — ${count} جديد`}
       >
         <Bell className="h-5 w-5" />
         {count > 0 && (
-          <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
+          <span className="absolute -right-1 -top-1 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white px-1 ring-2 ring-white">
             {count > 99 ? '99+' : count}
           </span>
         )}
@@ -238,12 +240,12 @@ export function Header({
     : [];
 
   return (
-    <header className="sticky top-0 z-30 border-b border-gray-200 bg-white shadow-sm">
-      <div className="flex h-16 items-center gap-4 px-4 lg:px-6">
+    <header className="sticky top-0 z-30 border-b border-slate-200/60 bg-white/80 backdrop-blur-xl supports-[backdrop-filter]:bg-white/70">
+      <div className="flex h-[72px] items-center gap-4 px-5 lg:px-8">
         {/* Mobile Menu Toggle */}
         <button
           onClick={onMenuToggle}
-          className="rounded-lg p-2 text-gray-500 hover:bg-gray-100 lg:hidden focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="rounded-xl p-2.5 text-slate-500 hover:bg-slate-100 hover:text-slate-700 lg:hidden transition-colors"
           aria-label="فتح القائمة"
         >
           <Menu className="h-5 w-5" />
@@ -251,23 +253,23 @@ export function Header({
 
         {/* Title + Breadcrumb */}
         <div className="flex-1 min-w-0">
-          <h1 className="text-lg font-bold text-gray-900 leading-tight truncate">
+          <h1 className="text-[17px] font-bold text-slate-900 leading-tight truncate tracking-tight">
             {title}
           </h1>
           {breadcrumbs.length > 0 && (
-            <nav aria-label="مسار التنقل" className="hidden sm:flex items-center gap-1 mt-0.5">
+            <nav aria-label="مسار التنقل" className="hidden sm:flex items-center gap-1.5 mt-0.5">
               {breadcrumbs.map((crumb, i) => (
-                <span key={i} className="flex items-center gap-1">
-                  {i > 0 && <span className="text-gray-300 text-xs">/</span>}
+                <span key={i} className="flex items-center gap-1.5">
+                  {i > 0 && <span className="text-slate-300 text-[10px]">›</span>}
                   {crumb.href ? (
                     <a
                       href={crumb.href}
-                      className="text-xs text-blue-600 hover:underline"
+                      className="text-[12px] text-blue-600 hover:text-blue-800 hover:underline transition-colors"
                     >
                       {crumb.label}
                     </a>
                   ) : (
-                    <span className="text-xs text-gray-500">{crumb.label}</span>
+                    <span className="text-[12px] text-slate-400">{crumb.label}</span>
                   )}
                 </span>
               ))}
@@ -278,7 +280,7 @@ export function Header({
         {/* Right Section */}
         <div className="flex items-center gap-3">
           {/* Date/Time */}
-          <span className="hidden xl:inline text-xs text-gray-400 whitespace-nowrap">
+          <span className="hidden xl:inline text-[12px] text-slate-400 whitespace-nowrap bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-100">
             {datetime}
           </span>
 

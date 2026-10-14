@@ -29,7 +29,7 @@ export function AdminLayout({
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <div className="flex h-screen overflow-hidden bg-gray-50" dir="rtl">
+    <div className="flex h-screen overflow-hidden bg-[#f4f6fb]" dir="rtl">
       {/* Sidebar */}
       <Sidebar
         mobileOpen={mobileOpen}
@@ -48,7 +48,7 @@ export function AdminLayout({
 
         {/* Page Content */}
         <main className="flex-1 overflow-y-auto">
-          <div className="mx-auto max-w-screen-2xl px-4 py-6 lg:px-6 lg:py-8">
+          <div className="mx-auto max-w-[1600px] px-5 py-7 lg:px-8 lg:py-9">
             {children}
           </div>
         </main>

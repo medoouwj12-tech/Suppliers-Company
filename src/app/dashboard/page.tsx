@@ -45,14 +45,14 @@ export default function DashboardPage() {
 
   return (
     <AdminLayout title="لوحة التحكم الرئيسية" breadcrumb="الرئيسية">
-      <div className="space-y-6">
+      <div className="space-y-8">
         {/* Header Actions */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 bg-white p-6 rounded-2xl border border-slate-200/70 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
           <div>
-            <h2 className="text-xl font-extrabold text-slate-900">مرحباً بك في نظام SupplyPro ERP 👋</h2>
-            <p className="text-xs text-slate-500 mt-1">نظرة عامة على المبيعات، التحصيلات، المخازن، وديون التجار</p>
+            <h2 className="text-[22px] font-extrabold text-slate-900 tracking-tight">مرحباً بك في SupplyPro ERP 👋</h2>
+            <p className="text-[13px] text-slate-400 mt-1.5">نظرة عامة على المبيعات، التحصيلات، المخازن، وديون التجار</p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2.5">
             <Button
               variant="outline"
               size="sm"
@@ -60,18 +60,18 @@ export default function DashboardPage() {
               loading={isRefetching}
               leftIcon={<RefreshCw className="h-4 w-4" />}
             >
-              تحديث البيانات
+              تحديث
             </Button>
             <Link href="/rep/new-sale">
               <Button size="sm" leftIcon={<Plus className="h-4 w-4" />}>
-                فاتورة مبيعات جديدة
+                فاتورة جديدة
               </Button>
             </Link>
           </div>
         </div>
 
         {/* 8 Metric KPI Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           <StatCard
             title="مبيعات اليوم"
             value={isLoading ? '...' : formatCurrency(data?.todaySales)}
@@ -143,16 +143,16 @@ export default function DashboardPage() {
         {/* Charts and Performance */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Monthly Sales vs Collections Chart */}
-          <div className="lg:col-span-2 bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+          <div className="lg:col-span-2 bg-white p-6 rounded-2xl border border-slate-200/70 shadow-[0_1px_3px_rgba(0,0,0,0.04)] space-y-5">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-base font-bold text-slate-900">حركة المبيعات والتحصيلات (آخر 6 أشهر)</h3>
-                <p className="text-xs text-slate-500">مقارنة بين إجمالي المبيعات والمبالغ المحصلة فعلياً</p>
+                <h3 className="text-[15px] font-bold text-slate-900">حركة المبيعات والتحصيلات</h3>
+                <p className="text-[12px] text-slate-400 mt-0.5">مقارنة بين إجمالي المبيعات والمبالغ المحصلة فعلياً</p>
               </div>
-              <Badge variant="outline">تقرير نصف سنوي</Badge>
+              <Badge variant="outline">آخر 6 أشهر</Badge>
             </div>
 
-            <div className="h-72 w-full pt-4">
+            <div className="h-72 w-full pt-2">
               {isLoading ? (
                 <div className="h-full flex items-center justify-center text-slate-400">جاري تحميل الرسم البياني...</div>
               ) : (
@@ -163,7 +163,7 @@ export default function DashboardPage() {
                     <YAxis stroke="#94a3b8" fontSize={12} tickLine={false} />
                     <Tooltip
                       formatter={(val: any) => formatCurrency(val)}
-                      contentStyle={{ backgroundColor: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0', direction: 'rtl', textAlign: 'right' }}
+                      contentStyle={{ backgroundColor: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0', direction: 'rtl', textAlign: 'right', boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}
                     />
                     <Legend wrapperStyle={{ paddingTop: '10px' }} />
                     <Bar dataKey="sales" name="المبيعات (ج.م)" fill="#1e3a5f" radius={[6, 6, 0, 0]} />
@@ -175,32 +175,32 @@ export default function DashboardPage() {
           </div>
 
           {/* Top Representatives */}
-          <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+          <div className="bg-white p-6 rounded-2xl border border-slate-200/70 shadow-[0_1px_3px_rgba(0,0,0,0.04)] space-y-5">
             <div className="flex items-center justify-between">
-              <h3 className="text-base font-bold text-slate-900">أفضل المندوبين مبيعاً</h3>
-              <Link href="/representatives" className="text-xs text-blue-600 hover:underline">
+              <h3 className="text-[15px] font-bold text-slate-900">أفضل المندوبين مبيعاً</h3>
+              <Link href="/representatives" className="text-[12px] text-blue-600 hover:text-blue-800 hover:underline transition-colors">
                 عرض الكل
               </Link>
             </div>
 
             <div className="space-y-3">
               {isLoading ? (
-                <div className="text-center py-6 text-slate-400">جاري التحميل...</div>
+                <div className="text-center py-8 text-slate-400">جاري التحميل...</div>
               ) : data?.topRepresentatives?.length === 0 ? (
-                <div className="text-center py-6 text-slate-400">لا توجد عمليات بيع بعد</div>
+                <div className="text-center py-8 text-slate-400">لا توجد عمليات بيع بعد</div>
               ) : (
                 data?.topRepresentatives?.map((rep: any, idx: number) => (
-                  <div key={rep.id} className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-100">
+                  <div key={rep.id} className="flex items-center justify-between p-3.5 rounded-xl bg-[#f8fafc] border border-slate-100/80 hover:border-slate-200/80 transition-colors">
                     <div className="flex items-center gap-3">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#1e3a5f] text-white text-xs font-bold">
+                      <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#1e3a5f] text-white text-[12px] font-bold">
                         {idx + 1}
                       </div>
                       <div>
-                        <h4 className="text-sm font-bold text-slate-900">{rep.name}</h4>
-                        <span className="text-xs text-slate-500 font-mono">{rep.code}</span>
+                        <h4 className="text-[13px] font-bold text-slate-900">{rep.name}</h4>
+                        <span className="text-[11px] text-slate-400 font-mono">{rep.code}</span>
                       </div>
                     </div>
-                    <div className="text-left font-bold text-sm text-emerald-700">
+                    <div className="text-left font-bold text-[13px] text-emerald-700">
                       {formatCurrency(rep.totalSales)}
                     </div>
                   </div>
@@ -209,14 +209,14 @@ export default function DashboardPage() {
             </div>
 
             {/* Quick links */}
-            <div className="pt-2 border-t border-slate-100">
-              <h4 className="text-xs font-semibold text-slate-500 mb-2">روابط سريعة</h4>
+            <div className="pt-4 border-t border-slate-100">
+              <h4 className="text-[12px] font-semibold text-slate-400 mb-2.5">روابط سريعة</h4>
               <div className="grid grid-cols-2 gap-2">
-                <Link href="/delivery-orders" className="p-2 text-xs font-medium text-slate-700 bg-slate-50 rounded-lg hover:bg-slate-100 text-center block">
-                  تسليم عهدة بضاعة
+                <Link href="/delivery-orders" className="p-2.5 text-[12px] font-medium text-slate-600 bg-[#f8fafc] rounded-xl hover:bg-slate-100 hover:text-slate-900 text-center block transition-colors border border-slate-100/80">
+                  تسليم عهدة
                 </Link>
-                <Link href="/cash-handovers" className="p-2 text-xs font-medium text-slate-700 bg-slate-50 rounded-lg hover:bg-slate-100 text-center block">
-                  توريد نقدية الخزينة
+                <Link href="/cash-handovers" className="p-2.5 text-[12px] font-medium text-slate-600 bg-[#f8fafc] rounded-xl hover:bg-slate-100 hover:text-slate-900 text-center block transition-colors border border-slate-100/80">
+                  توريد نقدية
                 </Link>
               </div>
             </div>
@@ -224,15 +224,15 @@ export default function DashboardPage() {
         </div>
 
         {/* Recent Invoices Table */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+        <div className="bg-white p-6 rounded-2xl border border-slate-200/70 shadow-[0_1px_3px_rgba(0,0,0,0.04)] space-y-5">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-base font-bold text-slate-900">آخر فواتير المبيعات الصادرة</h3>
-              <p className="text-xs text-slate-500">الفواتير الأخيرة الصادرة من المندوبين ومسجلة في النظام</p>
+              <h3 className="text-[15px] font-bold text-slate-900">آخر فواتير المبيعات</h3>
+              <p className="text-[12px] text-slate-400 mt-0.5">الفواتير الأخيرة الصادرة من المندوبين</p>
             </div>
             <Link href="/sales">
               <Button variant="outline" size="sm" rightIcon={<ArrowUpRight className="h-4 w-4" />}>
-                عرض جميع الفواتير
+                عرض الكل
               </Button>
             </Link>
           </div>
@@ -241,10 +241,10 @@ export default function DashboardPage() {
             <TableHeader>
               <TableRow>
                 <TableHead>رقم الفاتورة</TableHead>
-                <TableHead>التاجر / المحل</TableHead>
+                <TableHead>التاجر</TableHead>
                 <TableHead>المندوب</TableHead>
                 <TableHead>التاريخ</TableHead>
-                <TableHead>إجمالي الفاتورة</TableHead>
+                <TableHead>الإجمالي</TableHead>
                 <TableHead>المدفوع</TableHead>
                 <TableHead>المتبقي</TableHead>
                 <TableHead>حالة السداد</TableHead>
@@ -254,13 +254,13 @@ export default function DashboardPage() {
             <TableBody>
               {isLoading ? (
                 <TableRow>
-                  <TableCell colSpan={9} className="text-center py-6 text-slate-400">
+                  <TableCell colSpan={9} className="text-center py-10 text-slate-400">
                     جاري تحميل الفواتير...
                   </TableCell>
                 </TableRow>
               ) : data?.recentInvoices?.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={9} className="text-center py-6 text-slate-400">
+                  <TableCell colSpan={9} className="text-center py-10 text-slate-400">
                     لا توجد فواتير بعد
                   </TableCell>
                 </TableRow>
@@ -268,10 +268,10 @@ export default function DashboardPage() {
                 data?.recentInvoices?.map((inv: any) => (
                   <TableRow key={inv.id}>
                     <TableCell className="font-mono font-bold text-blue-900">{inv.invoiceNo}</TableCell>
-                    <TableCell className="font-semibold">{inv.merchant.businessName}</TableCell>
-                    <TableCell>{inv.representative.user.name}</TableCell>
-                    <TableCell>{formatDate(inv.invoiceDate)}</TableCell>
-                    <TableCell className="font-bold">{formatCurrency(inv.total)}</TableCell>
+                    <TableCell className="font-semibold text-slate-900">{inv.merchant.businessName}</TableCell>
+                    <TableCell className="text-slate-600">{inv.representative.user.name}</TableCell>
+                    <TableCell className="text-slate-500">{formatDate(inv.invoiceDate)}</TableCell>
+                    <TableCell className="font-bold text-slate-900">{formatCurrency(inv.total)}</TableCell>
                     <TableCell className="text-emerald-700 font-semibold">{formatCurrency(inv.paidAmount)}</TableCell>
                     <TableCell className={inv.remainingAmount > 0 ? 'text-rose-600 font-semibold' : 'text-slate-400'}>
                       {formatCurrency(inv.remainingAmount)}
