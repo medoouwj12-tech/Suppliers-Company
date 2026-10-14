@@ -59,27 +59,30 @@ export function RepLayout({ children }: RepLayoutProps) {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-gray-100" dir="rtl">
+    <div className="flex min-h-screen flex-col bg-[#f4f6fb]" dir="rtl">
       {/* Top Header */}
       <header
-        className="sticky top-0 z-20 shadow-sm"
-        style={{ backgroundColor: '#1e3a5f' }}
+        className="sticky top-0 z-20 shadow-[0_1px_3px_rgba(0,0,0,0.08)]"
+        style={{ background: 'linear-gradient(135deg, #1e3a5f 0%, #163050 100%)' }}
       >
-        <div className="flex h-14 items-center justify-between px-4">
+        <div className="flex h-16 items-center justify-between px-5">
           {/* Logo */}
-          <div className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/20">
-              <Truck className="h-4 w-4 text-white" />
+          <div className="flex items-center gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/15">
+              <Truck className="h-4.5 w-4.5 text-white" />
             </div>
-            <span className="text-sm font-bold text-white">SupplyPro ERP</span>
+            <div className="leading-tight">
+              <span className="text-[14px] font-bold text-white block">SupplyPro ERP</span>
+              <span className="text-[10px] text-blue-200/60">نظام المندوب</span>
+            </div>
           </div>
 
           {/* User Name */}
-          <div className="flex items-center gap-2">
-            <div className="flex h-7 w-7 items-center justify-center rounded-full bg-white/20 text-xs font-bold text-white">
+          <div className="flex items-center gap-2.5 bg-white/10 rounded-xl px-3 py-1.5">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/20 text-[12px] font-bold text-white">
               {userName.charAt(0)}
             </div>
-            <span className="text-sm text-blue-100 max-w-[120px] truncate">
+            <span className="text-[13px] text-white/90 max-w-[120px] truncate font-medium">
               {userName}
             </span>
           </div>
@@ -87,18 +90,18 @@ export function RepLayout({ children }: RepLayoutProps) {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto pb-20">
-        <div className="mx-auto max-w-xl px-4 py-4">
+      <main className="flex-1 overflow-y-auto pb-24">
+        <div className="mx-auto max-w-xl px-5 py-6">
           {children}
         </div>
       </main>
 
       {/* Bottom Navigation Bar */}
       <nav
-        className="fixed bottom-0 inset-x-0 z-20 border-t border-gray-200 bg-white safe-area-bottom"
+        className="fixed bottom-0 inset-x-0 z-20 border-t border-slate-200/80 bg-white/95 backdrop-blur-xl safe-area-bottom shadow-[0_-2px_10px_rgba(0,0,0,0.04)]"
         aria-label="التنقل الرئيسي"
       >
-        <div className="flex h-16 items-stretch">
+        <div className="flex h-[68px] items-stretch max-w-xl mx-auto">
           {BOTTOM_NAV_ITEMS.map((item) => {
             const active = isActive(item);
             const Icon = item.icon;
@@ -108,16 +111,16 @@ export function RepLayout({ children }: RepLayoutProps) {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="flex flex-1 flex-col items-center justify-center gap-0.5"
+                  className="flex flex-1 flex-col items-center justify-center gap-1"
                   aria-label={item.label}
                 >
                   <div
-                    className="flex h-11 w-11 items-center justify-center rounded-full shadow-md"
-                    style={{ backgroundColor: '#1e3a5f' }}
+                    className="flex h-12 w-12 items-center justify-center rounded-2xl shadow-[0_2px_8px_rgba(30,58,95,0.35)] -mt-4 transition-transform active:scale-95"
+                    style={{ background: 'linear-gradient(135deg, #1e3a5f 0%, #2a4a7a 100%)' }}
                   >
                     <Icon className="h-5 w-5 text-white" />
                   </div>
-                  <span className="text-[10px] font-medium text-gray-500">
+                  <span className="text-[10px] font-semibold text-slate-600">
                     {item.label}
                   </span>
                 </Link>
@@ -129,30 +132,22 @@ export function RepLayout({ children }: RepLayoutProps) {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  'flex flex-1 flex-col items-center justify-center gap-1 transition-colors',
-                  active ? 'text-blue-700' : 'text-gray-400 hover:text-gray-600'
+                  'flex flex-1 flex-col items-center justify-center gap-1.5 transition-colors',
+                  active ? 'text-[#1e3a5f]' : 'text-slate-400 hover:text-slate-600'
                 )}
                 aria-current={active ? 'page' : undefined}
                 aria-label={item.label}
               >
-                <div className="relative">
-                  <Icon
-                    className={cn(
-                      'h-5 w-5 transition-transform',
-                      active && 'scale-110'
-                    )}
-                  />
-                  {active && (
-                    <span
-                      className="absolute -bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full"
-                      style={{ backgroundColor: '#1e3a5f' }}
-                    />
+                <Icon
+                  className={cn(
+                    'h-[22px] w-[22px] transition-transform',
+                    active && 'scale-110'
                   )}
-                </div>
+                />
                 <span
                   className={cn(
-                    'text-[10px] font-medium',
-                    active ? 'text-blue-700' : 'text-gray-400'
+                    'text-[10.5px]',
+                    active ? 'font-bold' : 'font-medium'
                   )}
                 >
                   {item.label}

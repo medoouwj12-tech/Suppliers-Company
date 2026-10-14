@@ -314,35 +314,40 @@ export default function NewSalePage() {
 
   return (
     <RepLayout>
-      <div className="space-y-4 max-w-lg mx-auto pb-6">
+      <div className="space-y-6 pb-4">
         {/* Top Header */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Link href="/rep/dashboard" className="text-slate-500 hover:text-slate-900">
-              <ChevronRight className="h-5 w-5" />
+          <div className="flex items-center gap-3">
+            <Link
+              href="/rep/dashboard"
+              className="flex h-9 w-9 items-center justify-center rounded-xl bg-white border border-slate-200 text-slate-500 hover:text-slate-800 hover:border-slate-300 transition-colors shadow-[0_1px_2px_rgba(0,0,0,0.04)]"
+            >
+              <ChevronRight className="h-4.5 w-4.5" />
             </Link>
-            <h2 className="text-lg font-bold text-slate-900">فاتورة بيع جديدة</h2>
+            <h2 className="text-[20px] font-extrabold text-slate-900 tracking-tight">فاتورة بيع جديدة</h2>
           </div>
-          <Badge variant="outline">نظام العهدة الفورية</Badge>
+          <Badge variant="info">نظام العهدة</Badge>
         </div>
 
         {/* 1. اختيار التاجر */}
-        <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-3">
-          <h3 className="text-xs font-bold text-slate-500 flex items-center gap-1.5">
-            <Store className="h-4 w-4 text-[#1e3a5f]" />
-            الخطوة 1: اختيار التاجر / المحل
+        <div className="bg-white p-5 rounded-2xl border border-slate-200/70 shadow-[0_1px_3px_rgba(0,0,0,0.04)] space-y-4">
+          <h3 className="text-[14px] font-bold text-slate-800 flex items-center gap-2.5">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-50">
+              <Store className="h-4 w-4 text-blue-600" />
+            </div>
+            الخطوة 1: اختيار التاجر
           </h3>
 
           {selectedMerchant ? (
-            <div className="p-3 bg-blue-50/70 border border-blue-200 rounded-xl flex items-center justify-between">
-              <div>
-                <h4 className="font-bold text-sm text-blue-950">{selectedMerchant.businessName}</h4>
-                <p className="text-xs text-blue-700 mt-0.5">
+            <div className="p-4 bg-blue-50/60 border border-blue-200/60 rounded-xl flex items-center justify-between gap-3">
+              <div className="min-w-0">
+                <h4 className="font-bold text-[14px] text-blue-950">{selectedMerchant.businessName}</h4>
+                <p className="text-[12px] text-blue-700/80 mt-0.5">
                   {selectedMerchant.ownerName} • {selectedMerchant.phone}
                 </p>
-                <div className="mt-1 flex items-center gap-2">
+                <div className="mt-2 flex items-center gap-2">
                   <span className="text-[11px] text-slate-500">الرصيد الحالي:</span>
-                  <span className="text-xs font-bold text-rose-700 font-mono">
+                  <span className="text-[12px] font-bold text-rose-700 font-mono">
                     {formatCurrency(selectedMerchant.currentBalance)}
                   </span>
                 </div>
@@ -351,40 +356,40 @@ export default function NewSalePage() {
                 variant="outline"
                 size="sm"
                 onClick={() => setSelectedMerchant(null)}
-                className="bg-white text-xs h-8"
+                className="bg-white shrink-0"
               >
                 تغيير
               </Button>
             </div>
           ) : (
-            <div className="space-y-2">
+            <div className="space-y-3">
               <div className="relative">
-                <Search className="absolute right-3 top-2.5 h-4 w-4 text-slate-400" />
+                <Search className="absolute right-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                 <input
                   type="text"
                   placeholder="ابحث باسم المحل أو التاجر أو الهاتف..."
                   value={merchantSearch}
                   onChange={(e) => setMerchantSearch(e.target.value)}
-                  className="w-full pr-9 pl-3 py-2 text-sm border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none"
+                  className="w-full pr-10 pl-4 py-3 text-[13px] border border-slate-200 rounded-xl focus:border-[#1e3a5f] focus:outline-none bg-[#f8fafc]/50 focus:bg-white transition-colors"
                 />
               </div>
 
-              <div className="max-h-40 overflow-y-auto divide-y divide-slate-100 border border-slate-200 rounded-xl">
+              <div className="max-h-48 overflow-y-auto divide-y divide-slate-100 border border-slate-200/80 rounded-xl">
                 {filteredMerchants.length === 0 ? (
-                  <p className="text-center py-4 text-xs text-slate-400">لا يوجد تاجر مطابق</p>
+                  <p className="text-center py-6 text-[12px] text-slate-400">لا يوجد تاجر مطابق</p>
                 ) : (
                   filteredMerchants.map((m: any) => (
                     <button
                       key={m.id}
                       type="button"
                       onClick={() => setSelectedMerchant(m)}
-                      className="w-full p-2.5 text-right hover:bg-slate-50 flex items-center justify-between text-xs transition-colors"
+                      className="w-full px-4 py-3 text-right hover:bg-blue-50/50 flex items-center justify-between transition-colors"
                     >
                       <div>
-                        <span className="font-bold text-slate-900 block">{m.businessName}</span>
+                        <span className="font-bold text-[13px] text-slate-900 block">{m.businessName}</span>
                         <span className="text-slate-400 text-[11px]">{m.ownerName || m.phone}</span>
                       </div>
-                      <span className="text-slate-500 font-mono text-[11px]">{m.code}</span>
+                      <span className="text-slate-400 font-mono text-[11px]">{m.code}</span>
                     </button>
                   ))
                 )}
@@ -394,33 +399,35 @@ export default function NewSalePage() {
         </div>
 
         {/* 2. إضافة الأصناف من العهدة */}
-        <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200/70 shadow-[0_1px_3px_rgba(0,0,0,0.04)] space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-xs font-bold text-slate-500 flex items-center gap-1.5">
-              <Package className="h-4 w-4 text-[#1e3a5f]" />
-              الخطوة 2: إضافة الأصناف من عهدتك
+            <h3 className="text-[14px] font-bold text-slate-800 flex items-center gap-2.5">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-50">
+                <Package className="h-4 w-4 text-emerald-600" />
+              </div>
+              الخطوة 2: إضافة الأصناف
             </h3>
-            <span className="text-[11px] text-blue-600 font-semibold">
-              {inventoryData?.length ?? 0} صنف متاح
+            <span className="text-[12px] text-emerald-600 font-semibold bg-emerald-50 px-2.5 py-1 rounded-lg">
+              {inventoryData?.length ?? 0} صنف
             </span>
           </div>
 
-          {/* Quick Item Picker Dropdown / Scroll */}
-          <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-none">
+          {/* Quick Item Picker */}
+          <div className="flex gap-2.5 overflow-x-auto pb-2">
             {inventoryData?.map((prod: any) => (
               <button
                 key={prod.productId}
                 type="button"
                 onClick={() => handleAddItem(prod)}
                 disabled={prod.totalQuantityUnits <= 0}
-                className="shrink-0 p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 text-right text-xs transition-all active:scale-95 disabled:opacity-40 disabled:pointer-events-none"
+                className="shrink-0 p-3.5 rounded-xl border border-slate-200 bg-[#f8fafc] hover:bg-white hover:border-slate-300 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06)] text-right transition-all active:scale-95 disabled:opacity-40 disabled:pointer-events-none min-w-[160px]"
               >
-                <span className="font-bold text-slate-900 block truncate max-w-[140px]">{prod.productName}</span>
-                <span className="text-[10px] text-slate-500 block mt-0.5">
-                  متاح: {prod.cartons} {prod.cartonName} و {prod.remainderUnits} {prod.unitName}
+                <span className="font-bold text-[12px] text-slate-900 block truncate">{prod.productName}</span>
+                <span className="text-[11px] text-slate-400 block mt-1">
+                  متاح: {prod.cartons} {prod.cartonName}
                 </span>
-                <span className="text-[11px] font-bold text-emerald-700 block mt-1 font-mono">
-                  {prod.sellingPriceCarton} ج.م / كرتونة
+                <span className="text-[12px] font-bold text-emerald-700 block mt-1.5 font-mono">
+                  {prod.sellingPriceCarton} ج.م
                 </span>
               </button>
             ))}
@@ -428,75 +435,74 @@ export default function NewSalePage() {
 
           {/* Items In Invoice */}
           {items.length === 0 ? (
-            <div className="text-center py-6 border-2 border-dashed border-slate-200 rounded-xl text-slate-400 text-xs">
-              اضغط على صنف من القائمة أعلاه لإضافته للفاتورة
+            <div className="text-center py-8 border-2 border-dashed border-slate-200 rounded-xl text-slate-400 text-[12px]">
+              اضغط على صنف من القائمة أعلاه لإضافته
             </div>
           ) : (
-            <div className="space-y-3 divide-y divide-slate-100">
+            <div className="space-y-4">
               {items.map((item) => {
                 const totalReq = item.cartons * item.unitsPerCarton + item.units;
                 const isOver = totalReq > item.availableUnits;
                 const itemTotal = item.cartons * item.cartonPrice + item.units * item.unitPrice - item.itemDiscount;
 
                 return (
-                  <div key={item.productId} className="pt-3 space-y-2">
+                  <div key={item.productId} className="p-4 bg-[#f8fafc]/70 rounded-xl border border-slate-100 space-y-3">
                     <div className="flex items-center justify-between">
                       <div>
-                        <h4 className="font-bold text-xs text-slate-900">{item.name}</h4>
-                        <span className="text-[10px] text-slate-400">
-                          الكرتونة بها {item.unitsPerCarton} {item.unitName} • متاح: {item.availableUnits} {item.unitName}
+                        <h4 className="font-bold text-[13px] text-slate-900">{item.name}</h4>
+                        <span className="text-[11px] text-slate-400 mt-0.5 block">
+                          {item.unitsPerCarton} {item.unitName}/كرتونة • متاح: {item.availableUnits}
                         </span>
                       </div>
                       <button
                         onClick={() => handleRemoveItem(item.productId)}
-                        className="text-slate-400 hover:text-rose-600 p-1"
+                        className="text-slate-400 hover:text-rose-600 p-2 rounded-lg hover:bg-rose-50 transition-colors"
                       >
                         <Trash2 className="h-4 w-4" />
                       </button>
                     </div>
 
-                    {/* Cartons and Units inputs with big controls */}
-                    <div className="grid grid-cols-2 gap-2">
-                      <div className="bg-slate-50 p-2 rounded-xl border border-slate-200">
-                        <label className="text-[10px] text-slate-500 font-bold block mb-1">
-                          عدد الكراتين ({item.cartonPrice} ج.م)
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="bg-white p-3 rounded-xl border border-slate-200/80">
+                        <label className="text-[11px] text-slate-500 font-semibold block mb-2">
+                          كراتين ({item.cartonPrice} ج.م)
                         </label>
                         <div className="flex items-center justify-between">
                           <button
                             type="button"
                             onClick={() => handleUpdateItem(item.productId, 'cartons', item.cartons - 1)}
-                            className="h-8 w-8 rounded-lg bg-white border border-slate-300 flex items-center justify-center font-bold text-slate-700 active:bg-slate-200"
+                            className="h-9 w-9 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center font-bold text-slate-600 hover:bg-slate-100 active:scale-95 transition-all"
                           >
                             <Minus className="h-3.5 w-3.5" />
                           </button>
-                          <span className="font-bold text-sm font-mono">{item.cartons}</span>
+                          <span className="font-bold text-[16px] font-mono text-slate-900">{item.cartons}</span>
                           <button
                             type="button"
                             onClick={() => handleUpdateItem(item.productId, 'cartons', item.cartons + 1)}
-                            className="h-8 w-8 rounded-lg bg-white border border-slate-300 flex items-center justify-center font-bold text-slate-700 active:bg-slate-200"
+                            className="h-9 w-9 rounded-xl bg-[#1e3a5f] text-white flex items-center justify-center font-bold hover:bg-[#163050] active:scale-95 transition-all"
                           >
                             <Plus className="h-3.5 w-3.5" />
                           </button>
                         </div>
                       </div>
 
-                      <div className="bg-slate-50 p-2 rounded-xl border border-slate-200">
-                        <label className="text-[10px] text-slate-500 font-bold block mb-1">
-                          أكياس مفردة ({item.unitPrice} ج.م)
+                      <div className="bg-white p-3 rounded-xl border border-slate-200/80">
+                        <label className="text-[11px] text-slate-500 font-semibold block mb-2">
+                          أكياس ({item.unitPrice} ج.م)
                         </label>
                         <div className="flex items-center justify-between">
                           <button
                             type="button"
                             onClick={() => handleUpdateItem(item.productId, 'units', item.units - 1)}
-                            className="h-8 w-8 rounded-lg bg-white border border-slate-300 flex items-center justify-center font-bold text-slate-700 active:bg-slate-200"
+                            className="h-9 w-9 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center font-bold text-slate-600 hover:bg-slate-100 active:scale-95 transition-all"
                           >
                             <Minus className="h-3.5 w-3.5" />
                           </button>
-                          <span className="font-bold text-sm font-mono">{item.units}</span>
+                          <span className="font-bold text-[16px] font-mono text-slate-900">{item.units}</span>
                           <button
                             type="button"
                             onClick={() => handleUpdateItem(item.productId, 'units', item.units + 1)}
-                            className="h-8 w-8 rounded-lg bg-white border border-slate-300 flex items-center justify-center font-bold text-slate-700 active:bg-slate-200"
+                            className="h-9 w-9 rounded-xl bg-[#1e3a5f] text-white flex items-center justify-center font-bold hover:bg-[#163050] active:scale-95 transition-all"
                           >
                             <Plus className="h-3.5 w-3.5" />
                           </button>
@@ -504,18 +510,18 @@ export default function NewSalePage() {
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between text-xs pt-1">
+                    <div className="flex items-center justify-between text-[12px] pt-1">
                       <span className="text-slate-500">
-                        إجمالي الوحدات: <strong className="font-mono">{totalReq}</strong> {item.unitName}
+                        الإجمالي: <strong className="font-mono text-slate-700">{totalReq}</strong> وحدة
                       </span>
-                      <span className="font-bold text-slate-900 font-mono">
+                      <span className="font-bold text-slate-900 font-mono text-[14px]">
                         {formatCurrency(itemTotal)}
                       </span>
                     </div>
 
                     {isOver && (
-                      <p className="text-[11px] text-rose-600 font-bold flex items-center gap-1">
-                        <AlertCircle className="h-3 w-3" />
+                      <p className="text-[11px] text-rose-600 font-bold flex items-center gap-1.5 bg-rose-50 p-2 rounded-lg">
+                        <AlertCircle className="h-3.5 w-3.5 shrink-0" />
                         الكمية تتجاوز الرصيد المتاح في عهدتك!
                       </p>
                     )}
@@ -528,49 +534,51 @@ export default function NewSalePage() {
 
         {/* 3. الخصم والدفع */}
         {items.length > 0 && (
-          <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-3">
-            <h3 className="text-xs font-bold text-slate-500">الخطوة 3: التسوية المالية والسداد</h3>
+          <div className="bg-white p-5 rounded-2xl border border-slate-200/70 shadow-[0_1px_3px_rgba(0,0,0,0.04)] space-y-4">
+            <h3 className="text-[14px] font-bold text-slate-800 flex items-center gap-2.5">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-50">
+                <FileText className="h-4 w-4 text-amber-600" />
+              </div>
+              الخطوة 3: التسوية المالية
+            </h3>
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">الخصم (إن وجد)</label>
+                <label className="block text-[12px] font-semibold text-slate-600 mb-1.5">الخصم</label>
                 <input
                   type="number"
                   min="0"
                   value={discount}
                   onChange={(e) => setDiscount(Math.max(0, parseFloat(e.target.value) || 0))}
-                  className="w-full p-2.5 text-sm border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none"
+                  className="w-full p-3 text-[13px] border border-slate-200 rounded-xl focus:border-[#1e3a5f] focus:outline-none bg-[#f8fafc]/50 focus:bg-white transition-colors"
                   placeholder="0"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">المبلغ المسدد الآن</label>
+                <label className="block text-[12px] font-semibold text-slate-600 mb-1.5">المدفوع الآن</label>
                 <input
                   type="number"
                   min="0"
                   max={finalTotal}
                   value={paidAmount}
                   onChange={(e) => setPaidAmount(Math.max(0, parseFloat(e.target.value) || 0))}
-                  className="w-full p-2.5 text-sm border border-emerald-300 bg-emerald-50/50 rounded-xl font-bold text-emerald-900 focus:outline-none"
+                  className="w-full p-3 text-[13px] border border-emerald-300/80 bg-emerald-50/50 rounded-xl font-bold text-emerald-900 focus:outline-none focus:border-emerald-500 transition-colors"
                   placeholder="0"
                 />
               </div>
             </div>
 
-            {/* Quick full pay button */}
-            <div className="flex justify-end">
-              <button
-                type="button"
-                onClick={() => setPaidAmount(finalTotal)}
-                className="text-xs text-blue-600 font-bold hover:underline"
-              >
-                سداد كامل المبلغ كاش ({formatCurrency(finalTotal)})
-              </button>
-            </div>
+            <button
+              type="button"
+              onClick={() => setPaidAmount(finalTotal)}
+              className="w-full text-[12px] text-blue-600 font-bold hover:text-blue-800 py-2 hover:bg-blue-50 rounded-lg transition-colors"
+            >
+              سداد كامل المبلغ ({formatCurrency(finalTotal)})
+            </button>
 
-            {/* Final Calculation Summary */}
-            <div className="bg-slate-50 p-4 rounded-2xl space-y-2 border border-slate-200/80 text-sm">
+            {/* Summary */}
+            <div className="bg-[#f8fafc] p-4 rounded-xl space-y-2.5 border border-slate-100 text-[13px]">
               <div className="flex justify-between">
                 <span className="text-slate-500">إجمالي البنود:</span>
                 <span className="font-bold font-mono">{formatCurrency(subtotal)}</span>
@@ -581,30 +589,29 @@ export default function NewSalePage() {
                   <span className="font-bold font-mono">- {formatCurrency(discount)}</span>
                 </div>
               )}
-              <div className="flex justify-between text-base font-extrabold border-t border-slate-200 pt-2 text-slate-900">
-                <span>صافي الفاتورة:</span>
-                <span className="text-blue-900 font-mono">{formatCurrency(finalTotal)}</span>
+              <div className="flex justify-between text-[15px] font-extrabold border-t border-slate-200 pt-2.5 text-slate-900">
+                <span>الإجمالي:</span>
+                <span className="text-[#1e3a5f] font-mono">{formatCurrency(finalTotal)}</span>
               </div>
               <div className="flex justify-between text-emerald-700 font-bold">
-                <span>المدفوع نقداً:</span>
+                <span>المدفوع:</span>
                 <span className="font-mono">{formatCurrency(paidAmount)}</span>
               </div>
               {remainingAmount > 0 && (
                 <div className="flex justify-between text-rose-700 font-bold">
-                  <span>المتبقي على حساب التاجر (آجل):</span>
+                  <span>المتبقي (آجل):</span>
                   <span className="font-mono">{formatCurrency(remainingAmount)}</span>
                 </div>
               )}
             </div>
 
-            {/* Big Submit Button */}
             <Button
-              className="w-full h-14 text-base font-extrabold rounded-2xl shadow-lg mt-2 bg-[#1e3a5f] hover:bg-[#16304f]"
+              className="w-full h-14 text-[15px] font-extrabold rounded-2xl shadow-[0_2px_12px_rgba(30,58,95,0.3)]"
               onClick={handleSubmitInvoice}
               loading={isSubmitting}
               leftIcon={<CheckCircle2 className="h-5 w-5" />}
             >
-              تأكيد وحفظ الفاتورة ({formatCurrency(finalTotal)})
+              حفظ الفاتورة ({formatCurrency(finalTotal)})
             </Button>
           </div>
         )}
