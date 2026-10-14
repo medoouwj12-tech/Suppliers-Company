@@ -19,11 +19,20 @@ export default function CashHandoversPage() {
   const [amount, setAmount] = React.useState<number>(0);
   const [notes, setNotes] = React.useState('');
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [repId, setRepId] = React.useState('');
+
+  // قراءة ?representativeId= من الرابط
+  React.useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const rid = params.get('representativeId');
+    if (rid) setRepId(rid);
+  }, []);
 
   const { data, isLoading, refetch, isRefetching } = useQuery({
-    queryKey: ['cash-handovers-list'],
+    queryKey: ['cash-handovers-list', repId],
     queryFn: async () => {
-      const res = await fetch('/api/cash-handovers?limit=30');
+      const params = new URLSearchParams({ limit: '30', ...(repId ? { representativeId: repId } : {}) });
+      const res = await fetch(`/api/cash-handovers?${params.toString()}`);
       if (!res.ok) throw new Error('فشل جلب تسويات الخزينة');
       return res.json();
     },

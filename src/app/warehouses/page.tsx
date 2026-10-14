@@ -13,6 +13,14 @@ export default function WarehousesPage() {
   const [selectedWarehouseId, setSelectedWarehouseId] = React.useState<string>('');
   const [activeTab, setActiveTab] = React.useState<'stock' | 'movements'>('stock');
 
+  // قراءة ?tab= من الرابط
+  React.useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const tab = params.get('tab');
+    if (tab === 'movements') setActiveTab('movements');
+    else if (tab === 'stock') setActiveTab('stock');
+  }, []);
+
   // جلب قائمة المخازن
   const { data: warehouses, isLoading: isWarehousesLoading, refetch: refetchWarehouses } = useQuery({
     queryKey: ['warehouses-list'],

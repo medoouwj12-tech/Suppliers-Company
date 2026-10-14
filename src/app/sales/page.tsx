@@ -14,15 +14,24 @@ export default function SalesPage() {
   const [search, setSearch] = React.useState('');
   const [paymentStatus, setPaymentStatus] = React.useState('');
   const [page, setPage] = React.useState(1);
+  const [repId, setRepId] = React.useState('');
+
+  // قراءة ?representativeId= من الرابط
+  React.useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const rid = params.get('representativeId');
+    if (rid) setRepId(rid);
+  }, []);
 
   const { data, isLoading, refetch, isRefetching } = useQuery({
-    queryKey: ['sales-invoices', page, search, paymentStatus],
+    queryKey: ['sales-invoices', page, search, paymentStatus, repId],
     queryFn: async () => {
       const params = new URLSearchParams({
         page: page.toString(),
         limit: '15',
         ...(search ? { search } : {}),
         ...(paymentStatus ? { paymentStatus } : {}),
+        ...(repId ? { representativeId: repId } : {}),
       });
       const res = await fetch(`/api/sales?${params.toString()}`);
       if (!res.ok) throw new Error('فشل جلب فواتير المبيعات');

@@ -14,12 +14,21 @@ export default function DeliveryOrdersPage() {
   const { success, error: toastError } = useToast();
   const [showAddModal, setShowAddModal] = React.useState(false);
   const [approvingId, setApprovingId] = React.useState<string | null>(null);
+  const [repId, setRepId] = React.useState('');
+
+  // قراءة ?representativeId= من الرابط
+  React.useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const rid = params.get('representativeId');
+    if (rid) setRepId(rid);
+  }, []);
 
   // جلب أذونات التسليم
   const { data, isLoading, refetch, isRefetching } = useQuery({
-    queryKey: ['delivery-orders-list'],
+    queryKey: ['delivery-orders-list', repId],
     queryFn: async () => {
-      const res = await fetch('/api/delivery-orders?limit=30');
+      const params = new URLSearchParams({ limit: '30', ...(repId ? { representativeId: repId } : {}) });
+      const res = await fetch(`/api/delivery-orders?${params.toString()}`);
       if (!res.ok) throw new Error('فشل جلب أذونات التسليم');
       return res.json();
     },

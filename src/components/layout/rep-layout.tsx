@@ -25,18 +25,18 @@ const BOTTOM_NAV_ITEMS: BottomNavItem[] = [
   },
   {
     label: 'فاتورة جديدة',
-    href: '/rep/sales/new',
+    href: '/rep/new-sale',
     icon: Plus,
     highlight: true,
   },
   {
     label: 'عهدتي',
-    href: '/rep/custody',
+    href: '/rep/inventory',
     icon: Package,
   },
   {
     label: 'حسابي',
-    href: '/rep/profile',
+    href: '/rep/collections',
     icon: User,
   },
 ];

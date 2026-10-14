@@ -62,7 +62,7 @@ export default function DashboardPage() {
             >
               تحديث البيانات
             </Button>
-            <Link href="/sales/new">
+            <Link href="/rep/new-sale">
               <Button size="sm" leftIcon={<Plus className="h-4 w-4" />}>
                 فاتورة مبيعات جديدة
               </Button>

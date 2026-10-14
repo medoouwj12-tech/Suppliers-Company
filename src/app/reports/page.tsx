@@ -12,6 +12,13 @@ import { BarChart3, TrendingUp, Clock, Package, Printer, Download, RefreshCw } f
 export default function ReportsPage() {
   const [activeReport, setActiveReport] = React.useState<'sales' | 'debts' | 'inventory'>('sales');
 
+  // قراءة ?tab= من الرابط
+  React.useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const tab = params.get('tab');
+    if (tab === 'sales' || tab === 'debts' || tab === 'inventory') setActiveReport(tab);
+  }, []);
+
   // Sales report query
   const { data: salesReport, isLoading: isSalesLoading, refetch: refetchSales } = useQuery({
     queryKey: ['report-sales'],

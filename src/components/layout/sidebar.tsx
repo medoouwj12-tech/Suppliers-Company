@@ -52,7 +52,7 @@ const NAV_ITEMS: NavItem[] = [
     icon: ShoppingCart,
     subItems: [
       { label: 'فواتير البيع', href: '/sales' },
-      { label: 'إضافة فاتورة', href: '/sales/new' },
+      { label: 'إضافة فاتورة', href: '/rep/new-sale' },
     ],
   },
   {
@@ -66,8 +66,8 @@ const NAV_ITEMS: NavItem[] = [
     icon: Users,
     subItems: [
       { label: 'قائمة المندوبين', href: '/representatives' },
-      { label: 'عهدة البضاعة', href: '/representatives/custody' },
-      { label: 'تحصيل المدفوعات', href: '/representatives/collections' },
+      { label: 'تسليمات المندوبين', href: '/delivery-orders' },
+      { label: 'تسويات الخزينة', href: '/cash-handovers' },
     ],
   },
   {
@@ -75,9 +75,9 @@ const NAV_ITEMS: NavItem[] = [
     href: '/warehouses',
     icon: Warehouse,
     subItems: [
-      { label: 'أرصدة المخزون', href: '/warehouses/stock' },
-      { label: 'حركة المخزون', href: '/warehouses/movements' },
-      { label: 'تحويلات', href: '/warehouses/transfers' },
+      { label: 'المخازن والأرصدة', href: '/warehouses' },
+      { label: 'حركة المخزون', href: '/warehouses?tab=movements' },
+      { label: 'المرتجعات', href: '/returns' },
     ],
   },
   {
@@ -91,11 +91,11 @@ const NAV_ITEMS: NavItem[] = [
   },
   {
     label: 'المشتريات',
-    href: '/purchases',
+    href: '/suppliers',
     icon: Truck,
     subItems: [
+      { label: 'الموردون', href: '/suppliers' },
       { label: 'فواتير الشراء', href: '/purchases' },
-      { label: 'الموردون', href: '/purchases/suppliers' },
     ],
   },
   {
@@ -103,9 +103,9 @@ const NAV_ITEMS: NavItem[] = [
     href: '/reports',
     icon: BarChart,
     subItems: [
-      { label: 'تقرير المبيعات', href: '/reports/sales' },
-      { label: 'تقرير الديون', href: '/reports/debts' },
-      { label: 'تقرير المخزون', href: '/reports/inventory' },
+      { label: 'تقرير المبيعات', href: '/reports?tab=sales' },
+      { label: 'تقرير الديون', href: '/reports?tab=debts' },
+      { label: 'تقرير المخزون', href: '/reports?tab=inventory' },
     ],
   },
   {

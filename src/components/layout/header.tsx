@@ -73,12 +73,12 @@ function UserDropdown({ name, email }: UserDropdownProps) {
 
   const handleProfile = () => {
     setOpen(false);
-    router.push('/settings/profile');
+    router.push('/settings');
   };
 
   const handleChangePassword = () => {
     setOpen(false);
-    router.push('/settings/change-password');
+    router.push('/settings');
   };
 
   return (
