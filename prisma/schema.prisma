@@ -1,13 +1,14 @@
-// SupplyPro ERP - Prisma Schema (SQLite for local environment / zero-config)
-// For PostgreSQL production deployment, use prisma/schema.postgresql.prisma
+// SupplyPro ERP - Prisma Schema (PostgreSQL - Neon)
+// SQLite backup lives in prisma/schema.sqlite.prisma
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 // ==================== المستخدمون والصلاحيات ====================
