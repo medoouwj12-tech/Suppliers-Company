@@ -61,7 +61,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#1e3a5f] via-[#1e4a7f] to-[#2563eb] flex items-center justify-center p-4">
+    <div className="min-h-screen bg-[radial-gradient(ellipse_at_18%_12%,rgba(36,160,122,0.42),transparent_34%),linear-gradient(140deg,#102d42_0%,#124959_58%,#087f68_100%)] flex items-center justify-center p-4 sm:p-8">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
@@ -73,15 +73,15 @@ export default function LoginPage() {
         {/* Card */}
         <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
           {/* Header */}
-          <div className="bg-gradient-to-r from-[#1e3a5f] to-[#2563eb] p-8 text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full mb-4">
+          <div className="bg-[radial-gradient(ellipse_at_14%_0%,rgba(51,194,145,0.38),transparent_45%),linear-gradient(135deg,#102d42,#155363)] p-8 text-center sm:p-9">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-emerald-300/15 ring-1 ring-inset ring-white/15 rounded-2xl mb-4">
               <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10l2 2m0-10h10l2 6H5" />
               </svg>
             </div>
             <h1 className="text-2xl font-bold text-white mb-1">SupplyPro ERP</h1>
-            <p className="text-blue-100 text-sm">نظام إدارة التوريدات الغذائية</p>
+            <p className="text-emerald-50/85 text-sm">نظام إدارة التوريدات الغذائية</p>
           </div>
 
           {/* Form */}
@@ -89,15 +89,15 @@ export default function LoginPage() {
             <h2 className="text-xl font-semibold text-gray-800 mb-4 text-center">تسجيل الدخول</h2>
 
             {/* بطاقات التعبئة السريعة للتجربة */}
-            <div className="mb-5 p-3.5 bg-blue-50/80 border border-blue-200/80 rounded-xl">
-              <p className="text-xs font-bold text-blue-900 mb-2">💡 تجربة سريعة (اضغط للتعبئة التلقائية):</p>
+            <div className="mb-5 rounded-2xl border border-emerald-100 bg-emerald-50/70 p-4">
+              <p className="mb-3 text-[13px] font-bold text-emerald-950">دخول سريع للتجربة</p>
               <div className="grid grid-cols-2 gap-2">
                 <button
                   type="button"
                   onClick={() => fillCredentials('admin', 'admin123456')}
-                  className="p-2 bg-white hover:bg-blue-100/60 border border-blue-200 rounded-lg text-right transition flex flex-col group shadow-xs cursor-pointer"
+                  className="flex cursor-pointer flex-col rounded-xl border border-emerald-200 bg-white p-3 text-right shadow-sm transition hover:border-emerald-300 hover:bg-emerald-50/60"
                 >
-                  <span className="font-bold text-blue-900 text-xs flex items-center gap-1">
+                  <span className="flex items-center gap-1 text-xs font-bold text-emerald-950">
                     👑 حساب المدير
                   </span>
                   <span className="text-gray-500 font-mono text-[11px] mt-0.5">admin / admin123456</span>
@@ -136,7 +136,7 @@ export default function LoginPage() {
                     {...register('username')}
                     type="text"
                     autoComplete="username"
-                    className={`w-full pe-10 ps-4 py-3 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
+                    className={`w-full rounded-xl border py-3 pe-10 ps-4 text-sm transition-all focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 ${
                       errors.username
                         ? 'border-red-300 bg-red-50'
                         : 'border-gray-300 bg-white hover:border-gray-400'
@@ -171,7 +171,7 @@ export default function LoginPage() {
                     {...register('password')}
                     type={showPassword ? 'text' : 'password'}
                     autoComplete="current-password"
-                    className={`w-full pe-10 ps-10 py-3 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
+                    className={`w-full rounded-xl border py-3 pe-10 ps-10 text-sm transition-all focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 ${
                       errors.password
                         ? 'border-red-300 bg-red-50'
                         : 'border-gray-300 bg-white hover:border-gray-400'
@@ -188,7 +188,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full py-3 px-4 bg-[#1e3a5f] hover:bg-[#1e4a7f] disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 mt-2"
+                className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-[#087f68] px-4 py-3 font-semibold text-white shadow-[0_8px_18px_rgba(8,127,104,0.22)] transition-all duration-200 hover:bg-[#066a58] disabled:cursor-not-allowed disabled:bg-gray-400"
               >
                 {isLoading ? (
                   <>

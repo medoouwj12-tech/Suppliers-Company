@@ -35,7 +35,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             className={cn(
               'flex h-10 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900',
-              'placeholder:text-slate-400 focus:border-[#1e3a5f] focus:outline-none focus:ring-2 focus:ring-[#1e3a5f]/20',
+              'placeholder:text-slate-400 focus:border-[#087f68] focus:outline-none focus:ring-2 focus:ring-[#087f68]/20',
               'disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500',
               'transition-all duration-200',
               leftIcon && 'pl-10',

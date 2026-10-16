@@ -46,29 +46,47 @@ export default function DashboardPage() {
   return (
     <AdminLayout title="لوحة التحكم الرئيسية" breadcrumb="الرئيسية">
       <div className="space-y-8">
-        {/* Header Actions */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 bg-white p-6 rounded-2xl border border-slate-200/70 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
-          <div>
-            <h2 className="text-[22px] font-extrabold text-slate-900 tracking-tight">مرحباً بك في SupplyPro ERP 👋</h2>
-            <p className="text-[13px] text-slate-400 mt-1.5">نظرة عامة على المبيعات، التحصيلات، المخازن، وديون التجار</p>
-          </div>
-          <div className="flex items-center gap-2.5">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => refetch()}
-              loading={isRefetching}
-              leftIcon={<RefreshCw className="h-4 w-4" />}
-            >
-              تحديث
-            </Button>
-            <Link href="/rep/new-sale">
-              <Button size="sm" leftIcon={<Plus className="h-4 w-4" />}>
-                فاتورة جديدة
+        {/* Operations overview */}
+        <section className="relative isolate overflow-hidden rounded-[26px] bg-[#102f43] px-6 py-7 shadow-[0_18px_44px_rgba(16,47,67,0.17)] sm:px-8 sm:py-8 lg:px-10">
+          <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_12%_0%,rgba(31,155,119,0.42),transparent_42%),linear-gradient(115deg,transparent_42%,rgba(255,255,255,0.04)_100%)]" />
+          <div className="pointer-events-none absolute -left-16 -top-28 -z-10 h-72 w-72 rounded-full border border-white/10 shadow-[0_0_0_28px_rgba(255,255,255,0.025),0_0_0_58px_rgba(255,255,255,0.02)]" />
+          <div className="flex flex-col items-start justify-between gap-7 lg:flex-row lg:items-center">
+            <div className="max-w-2xl">
+              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-emerald-200/20 bg-emerald-200/10 px-3 py-1.5 text-[12px] font-semibold text-emerald-100">
+                <Truck className="h-4 w-4" />
+                <span>إدارة التوريدات والتوزيع</span>
+              </div>
+              <h2 className="text-[24px] font-extrabold leading-relaxed tracking-tight text-white sm:text-[29px]">
+                كل حركة شركتك، في مكان واحد
+              </h2>
+              <p className="mt-1.5 max-w-xl text-[13px] leading-7 text-slate-200/80 sm:text-[14px]">
+                تابع المبيعات والمخزون والتحصيلات من المورد إلى المخزن ثم إلى التاجر، بصورة واضحة ومحدثة.
+              </p>
+              <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-[12px] text-slate-200/75">
+                <span className="inline-flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-emerald-300 shadow-[0_0_0_4px_rgba(52,211,153,0.12)]" /> بيانات الشركة</span>
+                <span className="inline-flex items-center gap-2"><Package className="h-4 w-4 text-emerald-200" /> مخازن ومبيعات وموردون</span>
+              </div>
+            </div>
+            <div className="flex w-full flex-wrap items-center gap-2.5 lg:w-auto lg:shrink-0">
+              <Button
+                variant="outline"
+                size="md"
+                className="border-white/20 bg-white/10 text-white shadow-none hover:border-white/35 hover:bg-white/15 hover:text-white"
+                onClick={() => refetch()}
+                loading={isRefetching}
+                leftIcon={<RefreshCw className="h-4 w-4" />}
+              >
+                تحديث البيانات
               </Button>
-            </Link>
+              <Link href="/rep/new-sale">
+                <Button size="md" className="bg-emerald-400 text-[#102f43] shadow-[0_8px_20px_rgba(4,21,31,0.18)] hover:bg-emerald-300">
+                  <Plus className="h-4 w-4" />
+                  فاتورة جديدة
+                </Button>
+              </Link>
+            </div>
           </div>
-        </div>
+        </section>
 
         {/* 8 Metric KPI Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">

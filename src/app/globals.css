@@ -3,17 +3,17 @@
 @theme {
   --font-cairo: 'Cairo', sans-serif;
 
-  --color-primary-50: #f0f5ff;
-  --color-primary-100: #dfe8fc;
-  --color-primary-200: #c3d5fa;
-  --color-primary-300: #97b7f5;
-  --color-primary-400: #6b96ef;
-  --color-primary-500: #4a78e8;
-  --color-primary-600: #3559db;
-  --color-primary-700: #2a45b8;
-  --color-primary-800: #1e3a5f;
-  --color-primary-900: #1e3a5f;
-  --color-primary-950: #0f1d38;
+  --color-primary-50: #ecfdf7;
+  --color-primary-100: #d1fae9;
+  --color-primary-200: #a7f3d5;
+  --color-primary-300: #6ee7bd;
+  --color-primary-400: #34d3a1;
+  --color-primary-500: #13a982;
+  --color-primary-600: #087f68;
+  --color-primary-700: #086654;
+  --color-primary-800: #115447;
+  --color-primary-900: #10463c;
+  --color-primary-950: #082923;
 
   --color-success-50: #ecfdf5;
   --color-success-500: #10b981;
@@ -49,10 +49,10 @@ body {
 
 body {
   font-family: var(--font-cairo), 'Cairo', 'Tajawal', system-ui, sans-serif;
-  font-size: 14px;
-  line-height: 1.7;
+  font-size: 15px;
+  line-height: 1.75;
   color: #0f172a;
-  background-color: #f4f6fb;
+  background-color: #f3f7f6;
 }
 
 /* RTL Specific */
@@ -62,9 +62,9 @@ body {
 
 /* Improved focus states */
 *:focus-visible {
-  outline: 2px solid #4a78e8;
-  outline-offset: 2px;
-  border-radius: 4px;
+  outline: 2px solid #13a982;
+  outline-offset: 3px;
+  border-radius: 6px;
 }
 
 /* Scrollbar Styling */
@@ -78,17 +78,17 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 10px;
+  background: #c2d2ce;
+  border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #91aaa3;
 }
 
 /* Selection */
 ::selection {
-  background-color: #1e3a5f;
+  background-color: #087f68;
   color: white;
 }
 
@@ -164,7 +164,16 @@ input[type="number"] {
 
 /* Table cell min-height for better readability */
 td, th {
-  line-height: 1.6;
+  line-height: 1.75;
+}
+
+html { background: #f3f7f6; }
+button, input, select, textarea { font: inherit; }
+button { -webkit-tap-highlight-color: transparent; }
+input::placeholder, textarea::placeholder { color: #91a39f; opacity: 1; }
+
+@media (max-width: 640px) {
+  body { font-size: 14px; }
 }
 
 /* Input autofill fix */

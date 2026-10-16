@@ -139,10 +139,10 @@ function NavGroup({ item, isCollapsed, onMobileClose }: NavGroupProps) {
         href={item.href}
         onClick={onMobileClose}
         className={cn(
-          'flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-[13px] font-medium transition-all duration-200',
+          'flex min-h-11 items-center gap-3 rounded-xl px-3.5 py-2.5 text-[14px] font-medium transition-all duration-200',
           isActive
-            ? 'bg-white/15 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]'
-            : 'text-blue-100/80 hover:bg-white/8 hover:text-white',
+            ? 'bg-emerald-300/15 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] ring-1 ring-inset ring-white/10'
+            : 'text-emerald-50/80 hover:bg-white/8 hover:text-white',
           isCollapsed && 'justify-center px-2.5'
         )}
         title={isCollapsed ? item.label : undefined}
@@ -158,10 +158,10 @@ function NavGroup({ item, isCollapsed, onMobileClose }: NavGroupProps) {
       <button
         onClick={() => setIsOpen((prev) => !prev)}
         className={cn(
-          'flex w-full items-center gap-3 rounded-xl px-3.5 py-2.5 text-[13px] font-medium transition-all duration-200',
+          'flex min-h-11 w-full items-center gap-3 rounded-xl px-3.5 py-2.5 text-[14px] font-medium transition-all duration-200',
           isActive
-            ? 'bg-white/15 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]'
-            : 'text-blue-100/80 hover:bg-white/8 hover:text-white',
+            ? 'bg-emerald-300/15 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] ring-1 ring-inset ring-white/10'
+            : 'text-emerald-50/80 hover:bg-white/8 hover:text-white',
           isCollapsed && 'justify-center px-2.5'
         )}
         title={isCollapsed ? item.label : undefined}
@@ -189,10 +189,10 @@ function NavGroup({ item, isCollapsed, onMobileClose }: NavGroupProps) {
                 href={sub.href}
                 onClick={onMobileClose}
                 className={cn(
-                  'block rounded-lg px-3 py-[7px] text-[12.5px] transition-all duration-200',
+                  'block rounded-lg px-3 py-2 text-[13px] transition-all duration-200',
                   subActive
                     ? 'bg-white/20 text-white font-semibold'
-                    : 'text-blue-200/70 hover:bg-white/8 hover:text-white'
+                    : 'text-emerald-100/70 hover:bg-white/8 hover:text-white'
                 )}
               >
                 {sub.label}
@@ -244,7 +244,7 @@ export function Sidebar({ mobileOpen, onMobileClose }: SidebarProps) {
   }) => (
     <div
       className="flex h-full flex-col"
-      style={{ background: 'linear-gradient(180deg, #1e3a5f 0%, #163050 100%)' }}
+      style={{ background: 'radial-gradient(ellipse at 15% 0%, #236151 0%, transparent 42%), linear-gradient(180deg, #102d42 0%, #12394b 100%)' }}
     >
       {/* Logo */}
       <div
@@ -345,7 +345,7 @@ export function Sidebar({ mobileOpen, onMobileClose }: SidebarProps) {
       <aside
         className={cn(
           'hidden lg:flex flex-col shrink-0 transition-all duration-300',
-          desktopCollapsed ? 'w-[72px]' : 'w-[272px]'
+          desktopCollapsed ? 'w-[76px]' : 'w-[280px]'
         )}
       >
         <SidebarContent collapsed={desktopCollapsed} isMobile={false} />

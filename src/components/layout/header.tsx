@@ -91,7 +91,7 @@ function UserDropdown({ name, email }: UserDropdownProps) {
       >
         <div
           className="flex h-8 w-8 items-center justify-center rounded-lg text-xs font-bold text-white"
-          style={{ backgroundColor: '#1e3a5f' }}
+          style={{ backgroundColor: '#087f68' }}
         >
           {name.charAt(0)}
         </div>
@@ -264,7 +264,7 @@ export function Header({
                   {crumb.href ? (
                     <a
                       href={crumb.href}
-                      className="text-[12px] text-blue-600 hover:text-blue-800 hover:underline transition-colors"
+                      className="text-[12px] text-emerald-700 hover:text-emerald-900 hover:underline transition-colors"
                     >
                       {crumb.label}
                     </a>
