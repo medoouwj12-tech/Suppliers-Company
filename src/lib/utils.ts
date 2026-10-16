@@ -97,6 +97,7 @@ export function translateRole(role: string): string {
   const map: Record<string, string> = {
     ADMIN: 'مدير',
     REPRESENTATIVE: 'مندوب',
+    SUPPLIER: 'مورد',
   }
   return map[role] ?? role
 }

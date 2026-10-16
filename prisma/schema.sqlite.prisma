@@ -15,6 +15,7 @@ datasource db {
 model User {
   id           String    @id @default(cuid())
   username     String    @unique
+  supplierId   String?   @unique
   email        String?   @unique
   name         String
   passwordHash String
@@ -28,6 +29,7 @@ model User {
 
   // علاقات
   representative   Representative?
+  supplier         Supplier?         @relation(fields: [supplierId], references: [id], onDelete: SetNull)
   auditLogs        AuditLog[]
   stockMovements   StockMovement[]
   salesInvoices    SalesInvoice[]    @relation("CreatedBy")
@@ -283,6 +285,7 @@ model Supplier {
 
   purchaseInvoices PurchaseInvoice[]
   payments         Payment[]
+  user             User?
 
   @@map("suppliers")
 }

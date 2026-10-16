@@ -11,6 +11,8 @@ export default async function HomePage() {
 
   if (session.user.role === 'ADMIN') {
     redirect('/dashboard');
+  } else if (session.user.role === 'SUPPLIER') {
+    redirect('/supplier/dashboard');
   } else {
     redirect('/rep/dashboard');
   }

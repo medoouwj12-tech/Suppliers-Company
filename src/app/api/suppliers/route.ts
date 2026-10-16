@@ -41,6 +41,9 @@ export async function GET(request: NextRequest) {
         skip,
         take: limit,
         include: {
+          user: {
+            select: { id: true, username: true, status: true, lastLoginAt: true },
+          },
           purchaseInvoices: {
             where: { status: 'APPROVED' },
             select: { total: true, paidAmount: true },

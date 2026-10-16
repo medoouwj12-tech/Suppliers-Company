@@ -21,6 +21,17 @@ export async function requireAdmin() {
   return { session }
 }
 
+export async function requireSupplier() {
+  const { session, error } = await requireAuth()
+  if (error) return { error }
+
+  if (session!.user.role !== 'SUPPLIER' || !session!.user.supplierId) {
+    return { error: NextResponse.json({ error: 'هذه الصفحة مخصصة لحسابات الموردين' }, { status: 403 }) }
+  }
+
+  return { session, supplierId: session!.user.supplierId }
+}
+
 // التحقق من أن المندوب يصل لبياناته فقط
 export async function requireRepresentativeAccess(representativeId: string) {
   const { session, error } = await requireAuth()

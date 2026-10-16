@@ -2,9 +2,21 @@ import { withAuth } from 'next-auth/middleware'
 import { NextResponse } from 'next/server'
 
 export default withAuth(
-  function middleware(req) {
+  function proxy(req) {
     const token = req.nextauth.token
     const pathname = req.nextUrl.pathname
+
+    if (token?.role === 'SUPPLIER') {
+      const supplierArea = pathname.startsWith('/supplier')
+      const supplierApi = pathname.startsWith('/api/supplier-portal')
+      const authApi = pathname.startsWith('/api/auth')
+
+      if (!supplierArea && !supplierApi && !authApi) {
+        return NextResponse.redirect(new URL('/supplier/dashboard', req.url))
+      }
+    } else if (pathname.startsWith('/supplier')) {
+      return NextResponse.redirect(new URL(token ? '/dashboard' : '/login', req.url))
+    }
 
     // صفحات المندوب فقط
     const repOnlyPaths = ['/rep']
@@ -24,6 +36,8 @@ export default withAuth(
       }
       if (token.role === 'ADMIN') {
         return NextResponse.redirect(new URL('/dashboard', req.url))
+      } else if (token.role === 'SUPPLIER') {
+        return NextResponse.redirect(new URL('/supplier/dashboard', req.url))
       } else {
         return NextResponse.redirect(new URL('/rep/dashboard', req.url))
       }

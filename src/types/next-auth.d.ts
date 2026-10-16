@@ -8,6 +8,7 @@ declare module 'next-auth' {
     role: string
     representativeId: string | null
     warehouseId: string | null
+    supplierId: string | null
   }
 
   interface Session {
@@ -20,6 +21,7 @@ declare module 'next-auth' {
       role: string
       representativeId: string | null
       warehouseId: string | null
+      supplierId: string | null
     }
   }
 }
@@ -31,5 +33,6 @@ declare module 'next-auth/jwt' {
     role: string
     representativeId: string | null
     warehouseId: string | null
+    supplierId: string | null
   }
 }

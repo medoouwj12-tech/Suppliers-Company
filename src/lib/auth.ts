@@ -35,11 +35,18 @@ export const authOptions: NextAuthOptions = {
             representative: {
               select: { id: true, employeeCode: true, warehouseId: true },
             },
+            supplier: {
+              select: { id: true, name: true, status: true },
+            },
           },
         })
 
         if (!user) {
           throw new Error('اسم المستخدم أو كلمة المرور غير صحيحة')
+        }
+
+        if (user.role === 'SUPPLIER' && (!user.supplier || user.supplier.status !== 'ACTIVE')) {
+          throw new Error('حساب المورد غير نشط. يرجى التواصل مع الشركة')
         }
 
         if (user.status !== 'ACTIVE') {
@@ -89,6 +96,7 @@ export const authOptions: NextAuthOptions = {
           role: user.role,
           representativeId: user.representative?.id ?? null,
           warehouseId: user.representative?.warehouseId ?? null,
+          supplierId: user.supplier?.id ?? null,
         }
       },
     }),
@@ -101,6 +109,7 @@ export const authOptions: NextAuthOptions = {
         token.role = (user as any).role
         token.representativeId = (user as any).representativeId
         token.warehouseId = (user as any).warehouseId
+        token.supplierId = (user as any).supplierId
       }
       return token
     },
@@ -111,6 +120,7 @@ export const authOptions: NextAuthOptions = {
         session.user.role = token.role as string
         session.user.representativeId = token.representativeId as string | null
         session.user.warehouseId = token.warehouseId as string | null
+        session.user.supplierId = token.supplierId as string | null
       }
       return session
     },

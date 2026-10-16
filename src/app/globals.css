@@ -49,8 +49,8 @@ body {
 
 body {
   font-family: var(--font-cairo), 'Cairo', 'Tajawal', system-ui, sans-serif;
-  font-size: 15px;
-  line-height: 1.75;
+  font-size: 16px;
+  line-height: 1.85;
   color: #0f172a;
   background-color: #f3f7f6;
 }
@@ -173,8 +173,17 @@ button { -webkit-tap-highlight-color: transparent; }
 input::placeholder, textarea::placeholder { color: #91a39f; opacity: 1; }
 
 @media (max-width: 640px) {
-  body { font-size: 14px; }
+  body { font-size: 15px; }
 }
+
+/* Give compact helper text a little more room, especially in Arabic tables and forms. */
+.text-xs { font-size: 0.8125rem; line-height: 1.8; }
+.text-sm { font-size: 0.9375rem; line-height: 1.8; }
+[class~="text-[10px]"] { font-size: 0.6875rem; line-height: 1.8; }
+[class~="text-[11px]"] { font-size: 0.75rem; line-height: 1.8; }
+[class~="text-[12px]"],
+[class~="text-[12.5px]"] { font-size: 0.8125rem; line-height: 1.8; }
+[class~="text-[13px]"] { font-size: 0.875rem; line-height: 1.8; }
 
 /* Input autofill fix */
 input:-webkit-autofill,
