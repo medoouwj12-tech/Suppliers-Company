@@ -8,6 +8,7 @@ import {
   Truck,
   LayoutDashboard,
   ShoppingCart,
+  ReceiptText,
   Store,
   Users,
   Warehouse,
@@ -97,6 +98,11 @@ const NAV_ITEMS: NavItem[] = [
       { label: 'الموردون', href: '/suppliers' },
       { label: 'فواتير الشراء', href: '/purchases' },
     ],
+  },
+  {
+    label: 'المصروفات',
+    href: '/expenses',
+    icon: ReceiptText,
   },
   {
     label: 'التقارير',

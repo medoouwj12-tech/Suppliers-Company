@@ -19,12 +19,8 @@ export async function GET(request: NextRequest) {
 
     if (fromStr || toStr) {
       where.invoiceDate = {};
-      if (fromStr) where.invoiceDate.gte = new Date(fromStr);
-      if (toStr) {
-        const to = new Date(toStr);
-        to.setHours(23, 59, 59, 999);
-        where.invoiceDate.lte = to;
-      }
+      if (fromStr) where.invoiceDate.gte = new Date(`${fromStr}T00:00:00`);
+      if (toStr) where.invoiceDate.lte = new Date(`${toStr}T23:59:59.999`);
     }
 
     const invoices = await prisma.salesInvoice.findMany({
@@ -39,6 +35,17 @@ export async function GET(request: NextRequest) {
         },
       },
       orderBy: { invoiceDate: 'desc' },
+    });
+
+    const expenseWhere: any = {};
+    if (fromStr || toStr) {
+      expenseWhere.expenseDate = {};
+      if (fromStr) expenseWhere.expenseDate.gte = new Date(`${fromStr}T00:00:00`);
+      if (toStr) expenseWhere.expenseDate.lte = new Date(`${toStr}T23:59:59.999`);
+    }
+    const expenses = await prisma.expense.findMany({
+      where: expenseWhere,
+      include: { category: { select: { name: true, affectsProfit: true } } },
     });
 
     let totalSales = 0;
@@ -78,13 +85,28 @@ export async function GET(request: NextRequest) {
       };
     });
 
-    const netProfit = totalSales - totalCost;
+    const totalExpenses = expenses.reduce((sum, expense) => sum + Number(expense.amount), 0);
+    const profitExpenses = expenses.filter((expense) => expense.category?.affectsProfit).reduce((sum, expense) => sum + Number(expense.amount), 0);
+    const totalAdvances = expenses.filter((expense) => expense.category && !expense.category.affectsProfit).reduce((sum, expense) => sum + Number(expense.amount), 0);
+    const grossProfit = totalSales - totalCost;
+    const netProfit = grossProfit - profitExpenses;
+    const expensesByCategory = expenses.reduce((result: Record<string, { amount: number; affectsProfit: boolean }>, expense) => {
+      const name = expense.category?.name || 'بدون تصنيف';
+      result[name] ??= { amount: 0, affectsProfit: Boolean(expense.category?.affectsProfit) };
+      result[name].amount += Number(expense.amount);
+      return result;
+    }, {});
 
     return NextResponse.json({
       summary: {
         totalInvoices: invoices.length,
         totalSales: Math.round(totalSales * 100) / 100,
         totalCost: Math.round(totalCost * 100) / 100,
+        grossProfit: Math.round(grossProfit * 100) / 100,
+        totalExpenses: Math.round(totalExpenses * 100) / 100,
+        profitExpenses: Math.round(profitExpenses * 100) / 100,
+        totalAdvances: Math.round(totalAdvances * 100) / 100,
+        expensesByCategory: Object.entries(expensesByCategory).map(([name, values]) => ({ name, ...values, amount: Math.round(values.amount * 100) / 100 })),
         totalDiscount: Math.round(totalDiscount * 100) / 100,
         netProfit: Math.round(netProfit * 100) / 100,
         profitMargin: totalSales > 0 ? Math.round((netProfit / totalSales) * 1000) / 10 : 0,

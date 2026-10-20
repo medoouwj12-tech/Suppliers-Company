@@ -7,10 +7,15 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { formatCurrency, formatDate } from '@/lib/utils';
-import { BarChart3, TrendingUp, Clock, Package, Printer, Download, RefreshCw } from 'lucide-react';
+import { BarChart3, TrendingUp, Clock, Package, Printer, Download, RefreshCw, Wallet } from 'lucide-react';
+
+const asDateInput = (date: Date) => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
 
 export default function ReportsPage() {
   const [activeReport, setActiveReport] = React.useState<'sales' | 'debts' | 'inventory'>('sales');
+  const now = new Date();
+  const [from, setFrom] = React.useState(asDateInput(new Date(now.getFullYear(), now.getMonth(), 1)));
+  const [to, setTo] = React.useState(asDateInput(now));
 
   // قراءة ?tab= من الرابط
   React.useEffect(() => {
@@ -21,9 +26,9 @@ export default function ReportsPage() {
 
   // Sales report query
   const { data: salesReport, isLoading: isSalesLoading, refetch: refetchSales } = useQuery({
-    queryKey: ['report-sales'],
+    queryKey: ['report-sales', from, to],
     queryFn: async () => {
-      const res = await fetch('/api/reports/sales');
+      const res = await fetch(`/api/reports/sales?from=${from}&to=${to}`);
       if (!res.ok) throw new Error('فشل جلب تقرير المبيعات');
       return res.json();
     },
@@ -113,8 +118,13 @@ export default function ReportsPage() {
         {/* ==================== Report 1: Sales & Profits ==================== */}
         {activeReport === 'sales' && (
           <div className="space-y-6">
+            <div className="flex flex-wrap items-end gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm no-print">
+              <div className="w-48"><label className="mb-2 block text-sm font-semibold text-slate-700">من تاريخ</label><input type="date" value={from} onChange={(event) => setFrom(event.target.value)} className="h-11 w-full rounded-xl border border-slate-200 px-3 text-sm" /></div>
+              <div className="w-48"><label className="mb-2 block text-sm font-semibold text-slate-700">إلى تاريخ</label><input type="date" value={to} onChange={(event) => setTo(event.target.value)} className="h-11 w-full rounded-xl border border-slate-200 px-3 text-sm" /></div>
+              <div className="mr-auto flex items-center gap-2 text-sm font-medium text-slate-600"><Wallet className="h-4 w-4 text-emerald-700" />صافي الربح للفترة بعد خصم تكلفة البضاعة والمصروفات التشغيلية</div>
+            </div>
             {/* Summary Cards */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 gap-4 xl:grid-cols-5">
               <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
                 <span className="text-xs text-slate-500 font-bold block">إجمالي المبيعات</span>
                 <span className="text-xl font-black text-blue-950 font-mono mt-1 block">
@@ -134,13 +144,25 @@ export default function ReportsPage() {
               </div>
 
               <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
-                <span className="text-xs text-slate-500 font-bold block">صافي الأرباح التقديرية</span>
+                <span className="text-xs text-slate-500 font-bold block">مجمل الربح قبل المصروفات</span>
                 <span className="text-xl font-black text-emerald-700 font-mono mt-1 block">
-                  {formatCurrency(salesReport?.summary?.netProfit ?? 0)}
+                  {formatCurrency(salesReport?.summary?.grossProfit ?? 0)}
                 </span>
                 <span className="text-[11px] text-emerald-600 font-bold mt-1 block">
-                  هامش ربح: {salesReport?.summary?.profitMargin ?? 0}%
+                  قبل الرواتب والإيجار والمرافق
                 </span>
+              </div>
+
+              <div className="bg-amber-50 p-4 rounded-2xl border border-amber-200 shadow-sm">
+                <span className="text-xs text-amber-800 font-bold block">المصروفات التشغيلية</span>
+                <span className="text-xl font-black text-amber-900 font-mono mt-1 block">{formatCurrency(salesReport?.summary?.profitExpenses ?? 0)}</span>
+                <span className="text-[11px] text-amber-800 mt-1 block">السلف المعلقة لا تخصم</span>
+              </div>
+
+              <div className="bg-emerald-50 p-4 rounded-2xl border border-emerald-200 shadow-sm">
+                <span className="text-xs text-emerald-800 font-bold block">صافي الربح بعد المصروفات</span>
+                <span className="text-xl font-black text-emerald-900 font-mono mt-1 block">{formatCurrency(salesReport?.summary?.netProfit ?? 0)}</span>
+                <span className="text-[11px] text-emerald-700 font-bold mt-1 block">هامش صافي: {salesReport?.summary?.profitMargin ?? 0}%</span>
               </div>
 
               <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
@@ -151,6 +173,8 @@ export default function ReportsPage() {
                 <span className="text-[11px] text-slate-400 mt-1 block">آجل لدى التجار</span>
               </div>
             </div>
+
+            {salesReport?.summary?.expensesByCategory?.length > 0 && <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"><h3 className="mb-4 font-extrabold text-slate-900">تفصيل المصروفات حسب البند</h3><div className="grid grid-cols-2 gap-3 md:grid-cols-4">{salesReport.summary.expensesByCategory.map((item: any) => <div key={item.name} className="rounded-xl bg-slate-50 p-3"><div className="text-sm font-semibold text-slate-600">{item.name}{!item.affectsProfit && <span className="mr-1 text-[11px] text-amber-700">(سلفة لا تخصم)</span>}</div><div className="mt-1 font-mono font-black text-slate-900">{formatCurrency(item.amount)}</div></div>)}</div></div>}
 
             {/* Invoices Table */}
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
@@ -163,7 +187,7 @@ export default function ReportsPage() {
                     <TableHead>التاريخ</TableHead>
                     <TableHead className="text-left">قيمة البيع</TableHead>
                     <TableHead className="text-left">تكلفة الشراء</TableHead>
-                    <TableHead className="text-left font-bold text-emerald-800">الربح المحقق</TableHead>
+                    <TableHead className="text-left font-bold text-emerald-800">مجمل ربح الفاتورة</TableHead>
                     <TableHead className="text-left">المسدد</TableHead>
                     <TableHead className="text-left">المتبقي</TableHead>
                   </TableRow>

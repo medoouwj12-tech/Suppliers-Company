@@ -91,7 +91,7 @@ export function paginatedResponse<T>(
 export async function generateSequentialNumber(
   prismaClient: any,
   prefix: string,
-  modelName: 'salesInvoice' | 'purchaseInvoice' | 'payment' | 'cashHandover' | 'deliveryOrder' | 'return' | 'stockTransfer'
+  modelName: 'salesInvoice' | 'purchaseInvoice' | 'payment' | 'cashHandover' | 'deliveryOrder' | 'return' | 'stockTransfer' | 'expense'
 ): Promise<string> {
   const year = new Date().getFullYear();
   const searchPrefix = `${prefix}-${year}-`;
@@ -105,6 +105,7 @@ export async function generateSequentialNumber(
     deliveryOrder: 'orderNo',
     return: 'returnNo',
     stockTransfer: 'transferNo',
+    expense: 'expenseNo',
   };
 
   const field = fieldMap[modelName] || 'id';
