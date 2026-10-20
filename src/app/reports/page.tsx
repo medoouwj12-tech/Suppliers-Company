@@ -104,7 +104,7 @@ export default function ReportsPage() {
             >
               تحديث
             </Button>
-            <Button size="sm" onClick={handlePrint} leftIcon={<Printer className="h-4 w-4" />} className="bg-[#1e3a5f]">
+            <Button size="sm" onClick={handlePrint} leftIcon={<Printer className="h-4 w-4" />} className="bg-[#103c47]">
               طباعة التقرير
             </Button>
           </div>

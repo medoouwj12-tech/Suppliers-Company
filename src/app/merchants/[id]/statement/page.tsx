@@ -76,7 +76,7 @@ export default function MerchantStatementPage() {
           </div>
         </div>
 
-        <Button size="sm" onClick={handlePrint} leftIcon={<Printer className="h-4 w-4" />} className="bg-[#1e3a5f]">
+        <Button size="sm" onClick={handlePrint} leftIcon={<Printer className="h-4 w-4" />} className="bg-[#103c47]">
           طباعة كشف الحساب
         </Button>
       </div>
@@ -86,7 +86,7 @@ export default function MerchantStatementPage() {
         {/* Header */}
         <div className="flex justify-between items-start pb-6 border-b-2 border-slate-900">
           <div>
-            <h1 className="text-xl font-black text-[#1e3a5f]">SupplyPro ERP</h1>
+            <h1 className="text-xl font-black text-[#103c47]">SupplyPro ERP</h1>
             <p className="text-xs text-slate-500 font-bold">شركة النور للتوريدات الغذائية بالجملة</p>
             <p className="text-[11px] text-slate-400 mt-1">القاهرة • هاتف: 01012345678</p>
           </div>

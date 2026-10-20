@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 const buttonVariants = cva(
   [
     'inline-flex items-center justify-center gap-2',
-    'font-semibold rounded-xl transition-all duration-200',
+    'min-h-11 font-bold rounded-xl transition-all duration-200',
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
     'disabled:pointer-events-none disabled:opacity-50',
     'select-none whitespace-nowrap',
@@ -17,7 +17,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          'bg-[#087f68] text-white hover:bg-[#066a58] active:bg-[#075747] focus-visible:ring-[#13a982] shadow-[0_4px_12px_rgba(8,127,104,0.22)] hover:shadow-[0_6px_18px_rgba(8,127,104,0.3)]',
+          'bg-[#0e7268] text-white hover:bg-[#105b55] active:bg-[#124944] focus-visible:ring-[#3ca99a] shadow-[0_6px_16px_rgba(14,114,104,0.2)] hover:shadow-[0_9px_22px_rgba(14,114,104,0.27)]',
         secondary:
           'bg-slate-100 text-slate-700 hover:bg-slate-200 active:bg-slate-300 focus-visible:ring-slate-400',
         outline:
@@ -30,9 +30,9 @@ const buttonVariants = cva(
           'bg-emerald-600 text-white hover:bg-emerald-700 active:bg-emerald-800 focus-visible:ring-emerald-500 shadow-[0_1px_3px_rgba(5,150,105,0.3)]',
       },
       size: {
-        sm: 'h-8 px-3 text-[12px] rounded-lg',
-        md: 'h-10 px-4 text-[13px]',
-        lg: 'h-12 px-6 text-[14px]',
+        sm: 'min-h-9 px-3.5 text-[12px] rounded-lg',
+        md: 'min-h-11 px-4.5 text-[13px]',
+        lg: 'min-h-12 px-6 text-[14px]',
       },
     },
     defaultVariants: {

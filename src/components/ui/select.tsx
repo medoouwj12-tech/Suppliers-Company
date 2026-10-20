@@ -17,8 +17,8 @@ const SelectTrigger = React.forwardRef<
     ref={ref}
     dir="rtl"
     className={cn(
-      'flex h-10 w-full items-center justify-between rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900',
-      'placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#087f68]/20 focus:border-[#087f68]',
+      'flex h-11 w-full items-center justify-between rounded-xl border border-[#dce8e5] bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-[0_1px_2px_rgba(16,60,71,0.025)]',
+      'placeholder:text-slate-400 focus:outline-none focus:ring-4 focus:ring-[#0e7268]/10 focus:border-[#0e7268]',
       'disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200',
       className
     )}
@@ -41,7 +41,7 @@ const SelectContent = React.forwardRef<
       ref={ref}
       dir="rtl"
       className={cn(
-        'relative z-50 min-w-[8rem] overflow-hidden rounded-xl border border-slate-200 bg-white text-slate-950 shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
+        'relative z-50 min-w-[8rem] overflow-hidden rounded-2xl border border-[#dce8e5] bg-white text-slate-950 shadow-[0_18px_48px_rgba(16,60,71,0.16)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
         position === 'popper' &&
           'data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1',
         className
@@ -89,7 +89,7 @@ const SelectItem = React.forwardRef<
   >
     <span className="absolute right-2 flex h-3.5 w-3.5 items-center justify-center">
       <SelectPrimitive.ItemIndicator>
-        <Check className="h-4 w-4 text-[#087f68]" />
+        <Check className="h-4 w-4 text-[#0e7268]" />
       </SelectPrimitive.ItemIndicator>
     </span>
 

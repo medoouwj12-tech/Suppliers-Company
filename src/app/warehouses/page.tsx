@@ -84,7 +84,7 @@ export default function WarehousesPage() {
                   onClick={() => setSelectedWarehouseId(wh.id)}
                   className={`p-5 rounded-2xl border-2 transition-all cursor-pointer text-right ${
                     isSelected
-                      ? 'border-[#1e3a5f] bg-blue-50/40 shadow-md ring-2 ring-[#1e3a5f]/10'
+                      ? 'border-[#103c47] bg-blue-50/40 shadow-md ring-2 ring-[#103c47]/10'
                       : 'border-slate-200 bg-white hover:border-slate-300'
                   }`}
                 >
@@ -96,7 +96,7 @@ export default function WarehousesPage() {
                   </div>
 
                   <div className="mt-2 flex items-center gap-2">
-                    <WarehouseIcon className={`h-5 w-5 ${isSelected ? 'text-[#1e3a5f]' : 'text-slate-400'}`} />
+                    <WarehouseIcon className={`h-5 w-5 ${isSelected ? 'text-[#103c47]' : 'text-slate-400'}`} />
                     <h3 className="font-extrabold text-slate-900 text-base">{wh.name}</h3>
                   </div>
 

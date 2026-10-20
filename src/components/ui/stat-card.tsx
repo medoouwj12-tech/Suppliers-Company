@@ -29,9 +29,9 @@ export function StatCard({
   className,
 }: StatCardProps) {
   const iconVariants = {
-    default: 'bg-slate-100 text-slate-600',
-    blue: 'bg-blue-50 text-blue-600',
-    emerald: 'bg-emerald-50 text-emerald-600',
+    default: 'bg-[#eef4f3] text-[#456064]',
+    blue: 'bg-[#eaf3f6] text-[#2b6573]',
+    emerald: 'bg-[#e7f5f1] text-[#0e7268]',
     amber: 'bg-amber-50 text-amber-600',
     rose: 'bg-rose-50 text-rose-600',
   };
@@ -41,8 +41,8 @@ export function StatCard({
       onClick={onClick}
       dir="rtl"
       className={cn(
-        'group relative overflow-hidden rounded-2xl border border-slate-200/70 bg-white p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] transition-all duration-300',
-        onClick && 'cursor-pointer hover:shadow-[0_4px_16px_rgba(0,0,0,0.08)] hover:border-slate-300/80 hover:-translate-y-0.5 active:translate-y-0',
+        'group relative overflow-hidden rounded-[22px] border border-[#dce8e5] bg-white p-6 shadow-[0_8px_24px_rgba(16,60,71,0.045)] transition-all duration-300 sm:p-7',
+        onClick && 'cursor-pointer hover:shadow-[0_14px_32px_rgba(16,60,71,0.1)] hover:border-[#b8d3cd] hover:-translate-y-0.5 active:translate-y-0',
         className
       )}
     >
@@ -51,19 +51,19 @@ export function StatCard({
 
       <div className="relative flex items-start justify-between gap-4">
         <div className="min-w-0 flex-1">
-          <p className="text-[13px] font-medium text-slate-500 leading-relaxed">{title}</p>
-          <h3 className="mt-2.5 text-[26px] font-extrabold tracking-tight text-slate-900 leading-none">
+          <p className="text-[13px] font-semibold text-[#536b6d] leading-relaxed">{title}</p>
+          <h3 className="mt-3 text-[27px] font-extrabold tracking-tight text-[#132f38] leading-tight">
             {value}
           </h3>
           {subtitle && (
-            <p className="mt-2 text-[12px] text-slate-400 leading-relaxed">{subtitle}</p>
+            <p className="mt-2.5 text-[12px] text-slate-500 leading-relaxed">{subtitle}</p>
           )}
         </div>
 
         {icon && (
           <div
             className={cn(
-              'flex h-12 w-12 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110',
+              'flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl ring-1 ring-inset ring-black/[0.025] transition-transform duration-300 group-hover:scale-110',
               iconVariants[variant]
             )}
           >

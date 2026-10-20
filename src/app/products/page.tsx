@@ -87,7 +87,7 @@ export default function ProductsPage() {
               placeholder="ابحث باسم الصنف أو الكود SKU أو الماركة..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pr-9 pl-3 py-2 text-sm border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none"
+              className="w-full pr-9 pl-3 py-2 text-sm border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none"
             />
           </div>
 
@@ -183,7 +183,7 @@ export default function ProductsPage() {
           <div className="bg-white max-w-lg w-full rounded-3xl p-6 shadow-2xl space-y-4 text-right max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                <Package className="h-5 w-5 text-[#1e3a5f]" />
+                <Package className="h-5 w-5 text-[#103c47]" />
                 إضافة منتج غذائي جديد
               </h3>
               <button onClick={() => setShowAddModal(false)} className="text-slate-400 hover:text-slate-700">
@@ -201,7 +201,7 @@ export default function ProductsPage() {
                     placeholder="مثال: PASTA-400G"
                     value={formData.sku}
                     onChange={(e) => setFormData({ ...formData, sku: e.target.value })}
-                    className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none font-mono"
+                    className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none font-mono"
                   />
                 </div>
                 <div>
@@ -211,7 +211,7 @@ export default function ProductsPage() {
                     placeholder="مثال: حواء، كريستال..."
                     value={formData.brand}
                     onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
-                    className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none"
+                    className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none"
                   />
                 </div>
               </div>
@@ -224,7 +224,7 @@ export default function ProductsPage() {
                   placeholder="مثال: مكرونة حواء خواتم 400 جم"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none"
+                  className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none"
                 />
               </div>
 
@@ -277,7 +277,7 @@ export default function ProductsPage() {
                     required
                     value={formData.purchasePrice}
                     onChange={(e) => setFormData({ ...formData, purchasePrice: parseFloat(e.target.value) || 0 })}
-                    className="w-full p-2 text-xs border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none font-mono"
+                    className="w-full p-2 text-xs border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none font-mono"
                   />
                 </div>
                 <div>
@@ -289,7 +289,7 @@ export default function ProductsPage() {
                     required
                     value={formData.sellingPriceCarton}
                     onChange={(e) => setFormData({ ...formData, sellingPriceCarton: parseFloat(e.target.value) || 0 })}
-                    className="w-full p-2 text-xs border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none font-mono font-bold text-emerald-800"
+                    className="w-full p-2 text-xs border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none font-mono font-bold text-emerald-800"
                   />
                 </div>
                 <div>
@@ -301,7 +301,7 @@ export default function ProductsPage() {
                     required
                     value={formData.sellingPriceUnit}
                     onChange={(e) => setFormData({ ...formData, sellingPriceUnit: parseFloat(e.target.value) || 0 })}
-                    className="w-full p-2 text-xs border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none font-mono"
+                    className="w-full p-2 text-xs border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none font-mono"
                   />
                 </div>
               </div>
@@ -313,7 +313,7 @@ export default function ProductsPage() {
                   min="0"
                   value={formData.minStockAlert}
                   onChange={(e) => setFormData({ ...formData, minStockAlert: parseInt(e.target.value) || 0 })}
-                  className="w-full p-2 text-xs border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none font-mono"
+                  className="w-full p-2 text-xs border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none font-mono"
                 />
               </div>
 

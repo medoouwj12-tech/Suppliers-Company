@@ -83,7 +83,7 @@ export default function MerchantsPage() {
               placeholder="ابحث باسم المحل أو المالك أو الهاتف أو المنطقة..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pr-9 pl-3 py-2 text-sm border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none"
+              className="w-full pr-9 pl-3 py-2 text-sm border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none"
             />
           </div>
 
@@ -175,7 +175,7 @@ export default function MerchantsPage() {
           <div className="bg-white max-w-md w-full rounded-3xl p-6 shadow-2xl space-y-4 text-right">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                <Store className="h-5 w-5 text-[#1e3a5f]" />
+                <Store className="h-5 w-5 text-[#103c47]" />
                 إضافة تاجر أو محل جديد
               </h3>
               <button onClick={() => setShowAddModal(false)} className="text-slate-400 hover:text-slate-700">
@@ -192,7 +192,7 @@ export default function MerchantsPage() {
                   placeholder="مثال: سوبر ماركت السلام"
                   value={formData.businessName}
                   onChange={(e) => setFormData({ ...formData, businessName: e.target.value })}
-                  className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none"
+                  className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none"
                 />
               </div>
 
@@ -204,7 +204,7 @@ export default function MerchantsPage() {
                     placeholder="اسم المسؤول..."
                     value={formData.ownerName}
                     onChange={(e) => setFormData({ ...formData, ownerName: e.target.value })}
-                    className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none"
+                    className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none"
                   />
                 </div>
                 <div>
@@ -214,7 +214,7 @@ export default function MerchantsPage() {
                     placeholder="010..."
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none font-mono"
+                    className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none font-mono"
                   />
                 </div>
               </div>
@@ -227,7 +227,7 @@ export default function MerchantsPage() {
                     placeholder="مثال: المهندسين، شبرا..."
                     value={formData.area}
                     onChange={(e) => setFormData({ ...formData, area: e.target.value })}
-                    className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none"
+                    className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none"
                   />
                 </div>
                 <div>
@@ -237,7 +237,7 @@ export default function MerchantsPage() {
                     placeholder="الشارع ورقم العقار..."
                     value={formData.address}
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                    className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none"
+                    className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none"
                   />
                 </div>
               </div>
@@ -250,7 +250,7 @@ export default function MerchantsPage() {
                     step="any"
                     value={formData.openingBalance}
                     onChange={(e) => setFormData({ ...formData, openingBalance: parseFloat(e.target.value) || 0 })}
-                    className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none font-mono"
+                    className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none font-mono"
                   />
                 </div>
                 <div>
@@ -260,7 +260,7 @@ export default function MerchantsPage() {
                     step="any"
                     value={formData.creditLimit}
                     onChange={(e) => setFormData({ ...formData, creditLimit: parseFloat(e.target.value) || 0 })}
-                    className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none font-mono"
+                    className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none font-mono"
                   />
                 </div>
               </div>

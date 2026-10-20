@@ -60,7 +60,7 @@ export default function RepresentativesPage() {
               >
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="h-12 w-12 rounded-2xl bg-[#1e3a5f] text-white flex items-center justify-center font-bold text-lg">
+                    <div className="h-12 w-12 rounded-2xl bg-[#103c47] text-white flex items-center justify-center font-bold text-lg">
                       {rep.name.slice(0, 2)}
                     </div>
                     <div>

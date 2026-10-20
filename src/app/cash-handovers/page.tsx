@@ -175,7 +175,7 @@ export default function CashHandoversPage() {
                   required
                   value={selectedRep}
                   onChange={(e) => setSelectedRep(e.target.value)}
-                  className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none bg-white font-medium"
+                  className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none bg-white font-medium"
                 >
                   <option value="">اختر المندوب...</option>
                   {reps?.map((r: any) => (
@@ -209,7 +209,7 @@ export default function CashHandoversPage() {
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="ملاحظات التسوية..."
-                  className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none"
+                  className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none"
                 />
               </div>
 

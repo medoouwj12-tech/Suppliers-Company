@@ -3,17 +3,17 @@
 @theme {
   --font-cairo: 'Cairo', sans-serif;
 
-  --color-primary-50: #ecfdf7;
-  --color-primary-100: #d1fae9;
-  --color-primary-200: #a7f3d5;
-  --color-primary-300: #6ee7bd;
-  --color-primary-400: #34d3a1;
-  --color-primary-500: #13a982;
-  --color-primary-600: #087f68;
-  --color-primary-700: #086654;
-  --color-primary-800: #115447;
-  --color-primary-900: #10463c;
-  --color-primary-950: #082923;
+  --color-primary-50: #eaf7f5;
+  --color-primary-100: #d1eeea;
+  --color-primary-200: #a5ddd5;
+  --color-primary-300: #70c5b9;
+  --color-primary-400: #3ca99a;
+  --color-primary-500: #178b7d;
+  --color-primary-600: #0e7268;
+  --color-primary-700: #105b55;
+  --color-primary-800: #124944;
+  --color-primary-900: #123d3a;
+  --color-primary-950: #092624;
 
   --color-success-50: #ecfdf5;
   --color-success-500: #10b981;
@@ -27,6 +27,18 @@
   --color-danger-50: #fef2f2;
   --color-danger-500: #ef4444;
   --color-danger-600: #dc2626;
+}
+
+:root {
+  color-scheme: light;
+  --app-ink: #132c34;
+  --app-muted: #61777a;
+  --app-primary: #0e7268;
+  --app-primary-deep: #103c47;
+  --app-accent: #d7a94b;
+  --app-canvas: #f3f7f6;
+  --app-border: #dce8e5;
+  --app-shadow: 0 12px 32px rgba(16, 60, 71, 0.07);
 }
 
 * {
@@ -48,11 +60,12 @@ body {
 }
 
 body {
-  font-family: var(--font-cairo), 'Cairo', 'Tajawal', system-ui, sans-serif;
+  font-family: var(--font-cairo), 'Cairo', 'Tajawal', Tahoma, Arial, sans-serif;
   font-size: 16px;
   line-height: 1.85;
-  color: #0f172a;
-  background-color: #f3f7f6;
+  color: var(--app-ink);
+  background-color: var(--app-canvas);
+  background-image: radial-gradient(ellipse at 88% 0%, rgba(23, 139, 125, 0.055), transparent 30rem);
 }
 
 /* RTL Specific */
@@ -62,7 +75,7 @@ body {
 
 /* Improved focus states */
 *:focus-visible {
-  outline: 2px solid #13a982;
+  outline: 2px solid var(--app-primary);
   outline-offset: 3px;
   border-radius: 6px;
 }
@@ -88,7 +101,7 @@ body {
 
 /* Selection */
 ::selection {
-  background-color: #087f68;
+  background-color: var(--app-primary);
   color: white;
 }
 
@@ -164,26 +177,42 @@ input[type="number"] {
 
 /* Table cell min-height for better readability */
 td, th {
-  line-height: 1.75;
+  line-height: 1.85;
 }
 
-html { background: #f3f7f6; }
-button, input, select, textarea { font: inherit; }
+html { background: var(--app-canvas); }
+button, input, select, textarea { font-family: inherit; }
 button { -webkit-tap-highlight-color: transparent; }
-input::placeholder, textarea::placeholder { color: #91a39f; opacity: 1; }
+input::placeholder, textarea::placeholder { color: #829694; opacity: 1; }
+
+/* Shared surfaces and controls keep every section of the ERP visually related. */
+main {
+  scrollbar-gutter: stable;
+}
 
 @media (max-width: 640px) {
   body { font-size: 15px; }
 }
 
 /* Give compact helper text a little more room, especially in Arabic tables and forms. */
-.text-xs { font-size: 0.8125rem; line-height: 1.8; }
-.text-sm { font-size: 0.9375rem; line-height: 1.8; }
-[class~="text-[10px]"] { font-size: 0.6875rem; line-height: 1.8; }
-[class~="text-[11px]"] { font-size: 0.75rem; line-height: 1.8; }
+.text-xs { font-size: 0.8125rem; line-height: 1.85; }
+.text-sm { font-size: 0.9375rem; line-height: 1.85; }
+[class~="text-[10px]"] { font-size: 0.75rem; line-height: 1.85; }
+[class~="text-[11px]"] { font-size: 0.8125rem; line-height: 1.85; }
 [class~="text-[12px]"],
-[class~="text-[12.5px]"] { font-size: 0.8125rem; line-height: 1.8; }
-[class~="text-[13px]"] { font-size: 0.875rem; line-height: 1.8; }
+[class~="text-[12.5px]"] { font-size: 0.875rem; line-height: 1.85; }
+[class~="text-[13px]"] { font-size: 0.9375rem; line-height: 1.85; }
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
 
 /* Input autofill fix */
 input:-webkit-autofill,

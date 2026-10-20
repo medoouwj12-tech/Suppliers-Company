@@ -141,7 +141,7 @@ export default function RepCollectionsPage() {
                     placeholder="ابحث باسم المحل أو التاجر..."
                     value={merchantSearch}
                     onChange={(e) => setMerchantSearch(e.target.value)}
-                    className="w-full pr-10 pl-4 py-3 text-[13px] border border-slate-200 rounded-xl focus:border-[#1e3a5f] focus:outline-none bg-[#f8fafc]/50 focus:bg-white transition-colors"
+                    className="w-full pr-10 pl-4 py-3 text-[13px] border border-slate-200 rounded-xl focus:border-[#103c47] focus:outline-none bg-[#f8fafc]/50 focus:bg-white transition-colors"
                   />
                 </div>
 
@@ -211,7 +211,7 @@ export default function RepCollectionsPage() {
                       onClick={() => setPaymentType(m.id as any)}
                       className={`py-3 px-2 rounded-xl border text-[12px] font-bold transition-all active:scale-95 ${
                         paymentType === m.id
-                          ? 'border-[#1e3a5f] bg-[#1e3a5f] text-white shadow-[0_2px_8px_rgba(30,58,95,0.25)]'
+                          ? 'border-[#103c47] bg-[#103c47] text-white shadow-[0_2px_8px_rgba(30,58,95,0.25)]'
                           : 'border-slate-200 bg-[#f8fafc] text-slate-600 hover:bg-slate-100'
                       }`}
                     >
@@ -228,7 +228,7 @@ export default function RepCollectionsPage() {
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="أي تفاصيل إضافية عن السداد..."
-                  className="w-full p-3 text-[13px] border border-slate-200 rounded-xl focus:border-[#1e3a5f] focus:outline-none bg-[#f8fafc]/50 focus:bg-white transition-colors"
+                  className="w-full p-3 text-[13px] border border-slate-200 rounded-xl focus:border-[#103c47] focus:outline-none bg-[#f8fafc]/50 focus:bg-white transition-colors"
                 />
               </div>
 

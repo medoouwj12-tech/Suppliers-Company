@@ -30,7 +30,7 @@ export default function CategoriesPage() {
   const [formData, setFormData] = React.useState({
     name: '',
     nameAr: '',
-    color: '#1e3a5f',
+    color: '#103c47',
   });
 
   const { data, isLoading, refetch, isRefetching } = useQuery({
@@ -55,13 +55,13 @@ export default function CategoriesPage() {
 
   const openAdd = () => {
     setEditing(null);
-    setFormData({ name: '', nameAr: '', color: '#1e3a5f' });
+    setFormData({ name: '', nameAr: '', color: '#103c47' });
     setShowModal(true);
   };
 
   const openEdit = (cat: Category) => {
     setEditing(cat);
-    setFormData({ name: cat.name, nameAr: cat.nameAr ?? '', color: cat.color ?? '#1e3a5f' });
+    setFormData({ name: cat.name, nameAr: cat.nameAr ?? '', color: cat.color ?? '#103c47' });
     setShowModal(true);
   };
 
@@ -125,7 +125,7 @@ export default function CategoriesPage() {
               placeholder="ابحث باسم التصنيف..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pr-9 pl-3 py-2 text-sm border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none"
+              className="w-full pr-9 pl-3 py-2 text-sm border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none"
             />
           </div>
 
@@ -179,7 +179,7 @@ export default function CategoriesPage() {
                     <TableCell className="text-center">
                       <span
                         className="inline-block h-5 w-5 rounded-full border border-slate-200"
-                        style={{ backgroundColor: c.color || '#1e3a5f' }}
+                        style={{ backgroundColor: c.color || '#103c47' }}
                       />
                     </TableCell>
                     <TableCell className="text-center">
@@ -220,7 +220,7 @@ export default function CategoriesPage() {
           <div className="bg-white max-w-md w-full rounded-3xl p-6 shadow-2xl space-y-4 text-right">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                <FolderTree className="h-5 w-5 text-[#1e3a5f]" />
+                <FolderTree className="h-5 w-5 text-[#103c47]" />
                 {editing ? 'تعديل تصنيف' : 'إضافة تصنيف جديد'}
               </h3>
               <button onClick={() => setShowModal(false)} className="text-slate-400 hover:text-slate-700">
@@ -237,7 +237,7 @@ export default function CategoriesPage() {
                   placeholder="مثال: Pasta, Oil, Dairy..."
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none font-mono"
+                  className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none font-mono"
                 />
               </div>
 
@@ -248,7 +248,7 @@ export default function CategoriesPage() {
                   placeholder="مثال: مكرونة، زيوت، ألبان..."
                   value={formData.nameAr}
                   onChange={(e) => setFormData({ ...formData, nameAr: e.target.value })}
-                  className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none"
+                  className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none"
                 />
               </div>
 
@@ -265,7 +265,7 @@ export default function CategoriesPage() {
                     type="text"
                     value={formData.color}
                     onChange={(e) => setFormData({ ...formData, color: e.target.value })}
-                    className="flex-1 p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none font-mono"
+                    className="flex-1 p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none font-mono"
                   />
                 </div>
               </div>

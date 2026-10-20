@@ -49,7 +49,7 @@ export default function PurchasesPage() {
       <div className="space-y-5">
         <div className="flex items-center justify-between bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
           <h2 className="text-sm font-bold text-slate-700 flex items-center gap-2">
-            <Truck className="h-5 w-5 text-[#1e3a5f]" />
+            <Truck className="h-5 w-5 text-[#103c47]" />
             قائمة فواتير الشراء ({data?.pagination?.total ?? 0})
           </h2>
           <div className="flex items-center gap-2">

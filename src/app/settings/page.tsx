@@ -112,7 +112,7 @@ export default function SettingsPage() {
         {/* Profile Card */}
         <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
           <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2 mb-4">
-            <User className="h-5 w-5 text-[#1e3a5f]" />
+            <User className="h-5 w-5 text-[#103c47]" />
             الملف الشخصي
           </h2>
           <div className="grid grid-cols-1 gap-5 text-[15px] sm:grid-cols-2">
@@ -130,7 +130,7 @@ export default function SettingsPage() {
             </div>
             <div>
               <span className="block text-xs text-slate-400 mb-1">الصلاحية</span>
-              <span className="font-bold text-[#1e3a5f]">{roleLabel(user?.role)}</span>
+              <span className="font-bold text-[#103c47]">{roleLabel(user?.role)}</span>
             </div>
           </div>
         </div>
@@ -250,7 +250,7 @@ export default function SettingsPage() {
         {/* Change Password Card */}
         <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
           <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2 mb-4">
-            <Lock className="h-5 w-5 text-[#1e3a5f]" />
+            <Lock className="h-5 w-5 text-[#103c47]" />
             تغيير كلمة المرور
           </h2>
           <form onSubmit={handleChangePassword} className="space-y-4">
@@ -261,7 +261,7 @@ export default function SettingsPage() {
                 required
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
-                className="w-full p-2.5 text-sm border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none pl-10"
+                className="w-full p-2.5 text-sm border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none pl-10"
               />
             </div>
 
@@ -273,7 +273,7 @@ export default function SettingsPage() {
                 minLength={6}
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
-                className="w-full p-2.5 text-sm border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none pl-10"
+                className="w-full p-2.5 text-sm border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none pl-10"
               />
             </div>
 
@@ -284,7 +284,7 @@ export default function SettingsPage() {
                 required
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full p-2.5 text-sm border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none pl-10"
+                className="w-full p-2.5 text-sm border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none pl-10"
               />
             </div>
 

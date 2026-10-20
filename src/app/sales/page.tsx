@@ -52,14 +52,14 @@ export default function SalesPage() {
                 placeholder="ابحث برقم الفاتورة أو اسم التاجر..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full pr-9 pl-3 py-2 text-sm border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none"
+                className="w-full pr-9 pl-3 py-2 text-sm border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none"
               />
             </div>
 
             <select
               value={paymentStatus}
               onChange={(e) => setPaymentStatus(e.target.value)}
-              className="p-2 text-xs border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none bg-white font-medium"
+              className="p-2 text-xs border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none bg-white font-medium"
             >
               <option value="">جميع حالات السداد</option>
               <option value="PAID">مدفوعة بالكامل</option>

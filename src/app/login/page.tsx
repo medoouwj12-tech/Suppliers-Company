@@ -61,7 +61,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(ellipse_at_18%_12%,rgba(36,160,122,0.42),transparent_34%),linear-gradient(140deg,#102d42_0%,#124959_58%,#087f68_100%)] flex items-center justify-center p-4 sm:p-8">
+    <div className="min-h-screen bg-[radial-gradient(ellipse_at_18%_12%,rgba(36,160,122,0.42),transparent_34%),linear-gradient(140deg,#102d42_0%,#124959_58%,#0e7268_100%)] flex items-center justify-center p-4 sm:p-8">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
@@ -188,7 +188,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-[#087f68] px-4 py-3 font-semibold text-white shadow-[0_8px_18px_rgba(8,127,104,0.22)] transition-all duration-200 hover:bg-[#066a58] disabled:cursor-not-allowed disabled:bg-gray-400"
+                className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-[#0e7268] px-4 py-3 font-semibold text-white shadow-[0_8px_18px_rgba(8,127,104,0.22)] transition-all duration-200 hover:bg-[#066a58] disabled:cursor-not-allowed disabled:bg-gray-400"
               >
                 {isLoading ? (
                   <>

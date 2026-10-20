@@ -113,7 +113,7 @@ export default function SingleInvoicePage() {
             size="sm"
             onClick={handlePrint}
             leftIcon={<Printer className="h-4 w-4" />}
-            className="bg-[#1e3a5f]"
+            className="bg-[#103c47]"
           >
             طباعة الفاتورة
           </Button>
@@ -126,11 +126,11 @@ export default function SingleInvoicePage() {
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-6 border-b-2 border-slate-900 gap-4">
           <div>
             <div className="flex items-center gap-2">
-              <div className="h-10 w-10 bg-[#1e3a5f] text-white rounded-xl flex items-center justify-center font-bold text-lg">
+              <div className="h-10 w-10 bg-[#103c47] text-white rounded-xl flex items-center justify-center font-bold text-lg">
                 SP
               </div>
               <div>
-                <h1 className="text-xl font-extrabold text-[#1e3a5f]">سوبلاي برو ERP</h1>
+                <h1 className="text-xl font-extrabold text-[#103c47]">سوبلاي برو ERP</h1>
                 <p className="text-xs text-slate-500 font-medium">شركة النور للتوريدات الغذائية بالجملة</p>
               </div>
             </div>

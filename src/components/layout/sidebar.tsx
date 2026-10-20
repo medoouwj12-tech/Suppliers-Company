@@ -139,9 +139,9 @@ function NavGroup({ item, isCollapsed, onMobileClose }: NavGroupProps) {
         href={item.href}
         onClick={onMobileClose}
         className={cn(
-          'flex min-h-11 items-center gap-3 rounded-xl px-3.5 py-2.5 text-[14px] font-medium transition-all duration-200',
+          'flex min-h-12 items-center gap-3 rounded-2xl px-3.5 py-2.5 text-[14px] font-semibold transition-all duration-200',
           isActive
-            ? 'bg-emerald-300/15 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] ring-1 ring-inset ring-white/10'
+            ? 'bg-gradient-to-l from-emerald-300/20 to-white/10 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_8px_18px_rgba(4,24,31,0.12)] ring-1 ring-inset ring-emerald-100/20'
             : 'text-emerald-50/80 hover:bg-white/8 hover:text-white',
           isCollapsed && 'justify-center px-2.5'
         )}
@@ -158,9 +158,9 @@ function NavGroup({ item, isCollapsed, onMobileClose }: NavGroupProps) {
       <button
         onClick={() => setIsOpen((prev) => !prev)}
         className={cn(
-          'flex min-h-11 w-full items-center gap-3 rounded-xl px-3.5 py-2.5 text-[14px] font-medium transition-all duration-200',
+          'flex min-h-12 w-full items-center gap-3 rounded-2xl px-3.5 py-2.5 text-[14px] font-semibold transition-all duration-200',
           isActive
-            ? 'bg-emerald-300/15 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] ring-1 ring-inset ring-white/10'
+            ? 'bg-gradient-to-l from-emerald-300/20 to-white/10 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_8px_18px_rgba(4,24,31,0.12)] ring-1 ring-inset ring-emerald-100/20'
             : 'text-emerald-50/80 hover:bg-white/8 hover:text-white',
           isCollapsed && 'justify-center px-2.5'
         )}
@@ -189,7 +189,7 @@ function NavGroup({ item, isCollapsed, onMobileClose }: NavGroupProps) {
                 href={sub.href}
                 onClick={onMobileClose}
                 className={cn(
-                  'block rounded-lg px-3 py-2 text-[13px] transition-all duration-200',
+              'block rounded-xl px-3 py-2.5 text-[13px] font-medium transition-all duration-200',
                   subActive
                     ? 'bg-white/20 text-white font-semibold'
                     : 'text-emerald-100/70 hover:bg-white/8 hover:text-white'
@@ -230,6 +230,8 @@ export function Sidebar({ mobileOpen, onMobileClose }: SidebarProps) {
         return 'مدير مخزن';
       case 'REPRESENTATIVE':
         return 'مندوب مبيعات';
+      case 'SUPPLIER':
+        return 'مورد';
       default:
         return 'مستخدم';
     }
@@ -244,21 +246,21 @@ export function Sidebar({ mobileOpen, onMobileClose }: SidebarProps) {
   }) => (
     <div
       className="flex h-full flex-col"
-      style={{ background: 'radial-gradient(ellipse at 15% 0%, #236151 0%, transparent 42%), linear-gradient(180deg, #102d42 0%, #12394b 100%)' }}
+      style={{ background: 'radial-gradient(ellipse at 12% 0%, rgba(44,142,120,0.44) 0%, transparent 43%), radial-gradient(ellipse at 100% 92%, rgba(215,169,75,0.08) 0%, transparent 35%), linear-gradient(180deg, #103744 0%, #0d2c3a 58%, #0b2633 100%)' }}
     >
       {/* Logo */}
       <div
         className={cn(
-          'flex items-center gap-3 border-b border-white/8 px-5 py-6',
+          'flex items-center gap-3 border-b border-white/10 px-5 py-6',
           collapsed && 'justify-center px-2'
         )}
       >
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/15 backdrop-blur-sm">
+        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-300/30 to-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] backdrop-blur-sm">
           <Truck className="h-5 w-5 text-white" />
         </div>
         {!collapsed && (
           <div className="leading-tight">
-            <p className="text-[15px] font-bold text-white tracking-tight">SupplyPro ERP</p>
+            <p className="text-[15px] font-extrabold text-white tracking-tight">SupplyPro ERP</p>
             <p className="text-[11px] text-blue-200/70 mt-0.5">نظام إدارة التوريدات</p>
           </div>
         )}
@@ -302,7 +304,7 @@ export function Sidebar({ mobileOpen, onMobileClose }: SidebarProps) {
       </nav>
 
       {/* User Info */}
-      <div className="border-t border-white/8 px-3 py-5">
+      <div className="border-t border-white/10 px-3 py-5">
         {!collapsed ? (
           <div className="space-y-3">
             <div className="flex items-center gap-3 px-2">

@@ -370,7 +370,7 @@ export default function NewSalePage() {
                   placeholder="ابحث باسم المحل أو التاجر أو الهاتف..."
                   value={merchantSearch}
                   onChange={(e) => setMerchantSearch(e.target.value)}
-                  className="w-full pr-10 pl-4 py-3 text-[13px] border border-slate-200 rounded-xl focus:border-[#1e3a5f] focus:outline-none bg-[#f8fafc]/50 focus:bg-white transition-colors"
+                  className="w-full pr-10 pl-4 py-3 text-[13px] border border-slate-200 rounded-xl focus:border-[#103c47] focus:outline-none bg-[#f8fafc]/50 focus:bg-white transition-colors"
                 />
               </div>
 
@@ -479,7 +479,7 @@ export default function NewSalePage() {
                           <button
                             type="button"
                             onClick={() => handleUpdateItem(item.productId, 'cartons', item.cartons + 1)}
-                            className="h-9 w-9 rounded-xl bg-[#1e3a5f] text-white flex items-center justify-center font-bold hover:bg-[#163050] active:scale-95 transition-all"
+                            className="h-9 w-9 rounded-xl bg-[#103c47] text-white flex items-center justify-center font-bold hover:bg-[#163050] active:scale-95 transition-all"
                           >
                             <Plus className="h-3.5 w-3.5" />
                           </button>
@@ -502,7 +502,7 @@ export default function NewSalePage() {
                           <button
                             type="button"
                             onClick={() => handleUpdateItem(item.productId, 'units', item.units + 1)}
-                            className="h-9 w-9 rounded-xl bg-[#1e3a5f] text-white flex items-center justify-center font-bold hover:bg-[#163050] active:scale-95 transition-all"
+                            className="h-9 w-9 rounded-xl bg-[#103c47] text-white flex items-center justify-center font-bold hover:bg-[#163050] active:scale-95 transition-all"
                           >
                             <Plus className="h-3.5 w-3.5" />
                           </button>
@@ -550,7 +550,7 @@ export default function NewSalePage() {
                   min="0"
                   value={discount}
                   onChange={(e) => setDiscount(Math.max(0, parseFloat(e.target.value) || 0))}
-                  className="w-full p-3 text-[13px] border border-slate-200 rounded-xl focus:border-[#1e3a5f] focus:outline-none bg-[#f8fafc]/50 focus:bg-white transition-colors"
+                  className="w-full p-3 text-[13px] border border-slate-200 rounded-xl focus:border-[#103c47] focus:outline-none bg-[#f8fafc]/50 focus:bg-white transition-colors"
                   placeholder="0"
                 />
               </div>
@@ -591,7 +591,7 @@ export default function NewSalePage() {
               )}
               <div className="flex justify-between text-[15px] font-extrabold border-t border-slate-200 pt-2.5 text-slate-900">
                 <span>الإجمالي:</span>
-                <span className="text-[#1e3a5f] font-mono">{formatCurrency(finalTotal)}</span>
+                <span className="text-[#103c47] font-mono">{formatCurrency(finalTotal)}</span>
               </div>
               <div className="flex justify-between text-emerald-700 font-bold">
                 <span>المدفوع:</span>

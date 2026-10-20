@@ -184,7 +184,7 @@ export default function DashboardPage() {
                       contentStyle={{ backgroundColor: '#fff', borderRadius: '12px', border: '1px solid #e2e8f0', direction: 'rtl', textAlign: 'right', boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}
                     />
                     <Legend wrapperStyle={{ paddingTop: '10px' }} />
-                    <Bar dataKey="sales" name="المبيعات (ج.م)" fill="#1e3a5f" radius={[6, 6, 0, 0]} />
+                    <Bar dataKey="sales" name="المبيعات (ج.م)" fill="#103c47" radius={[6, 6, 0, 0]} />
                     <Bar dataKey="collections" name="التحصيلات (ج.م)" fill="#10b981" radius={[6, 6, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
@@ -210,7 +210,7 @@ export default function DashboardPage() {
                 data?.topRepresentatives?.map((rep: any, idx: number) => (
                   <div key={rep.id} className="flex items-center justify-between p-3.5 rounded-xl bg-[#f8fafc] border border-slate-100/80 hover:border-slate-200/80 transition-colors">
                     <div className="flex items-center gap-3">
-                      <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#1e3a5f] text-white text-[12px] font-bold">
+                      <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#103c47] text-white text-[12px] font-bold">
                         {idx + 1}
                       </div>
                       <div>

@@ -230,7 +230,7 @@ export default function DeliveryOrdersPage() {
           <div className="bg-white max-w-md w-full rounded-3xl p-6 shadow-2xl space-y-4 text-right">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                <Package className="h-5 w-5 text-[#1e3a5f]" />
+                <Package className="h-5 w-5 text-[#103c47]" />
                 إذن تسليم بضاعة للمندوب
               </h3>
               <button onClick={() => setShowAddModal(false)} className="text-slate-400 hover:text-slate-700">
@@ -245,7 +245,7 @@ export default function DeliveryOrdersPage() {
                   required
                   value={selectedRep}
                   onChange={(e) => setSelectedRep(e.target.value)}
-                  className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none bg-white font-medium"
+                  className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none bg-white font-medium"
                 >
                   <option value="">اختر المندوب...</option>
                   {reps?.map((r: any) => (
@@ -262,7 +262,7 @@ export default function DeliveryOrdersPage() {
                   required
                   value={selectedWarehouse}
                   onChange={(e) => setSelectedWarehouse(e.target.value)}
-                  className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none bg-white font-medium"
+                  className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none bg-white font-medium"
                 >
                   <option value="">اختر المخزن...</option>
                   {warehouses?.map((w: any) => (
@@ -279,7 +279,7 @@ export default function DeliveryOrdersPage() {
                   required
                   value={selectedProduct}
                   onChange={(e) => setSelectedProduct(e.target.value)}
-                  className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none bg-white font-medium"
+                  className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none bg-white font-medium"
                 >
                   <option value="">اختر الصنف...</option>
                   {products?.data?.map((p: any) => (

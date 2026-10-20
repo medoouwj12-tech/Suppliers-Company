@@ -91,7 +91,7 @@ function UserDropdown({ name, email }: UserDropdownProps) {
       >
         <div
           className="flex h-8 w-8 items-center justify-center rounded-lg text-xs font-bold text-white"
-          style={{ backgroundColor: '#087f68' }}
+          style={{ backgroundColor: '#0e7268' }}
         >
           {name.charAt(0)}
         </div>
@@ -207,7 +207,7 @@ function NotificationBell({ count }: NotificationBellProps) {
             <div className="border-t border-gray-100 px-4 py-2 text-center">
               <button
                 onClick={() => setOpen(false)}
-                className="text-xs font-medium text-blue-600 hover:underline"
+                className="text-xs font-semibold text-[#0e7268] hover:underline"
               >
                 عرض جميع الإشعارات
               </button>
@@ -240,8 +240,8 @@ export function Header({
     : [];
 
   return (
-    <header className="sticky top-0 z-30 border-b border-slate-200/60 bg-white/80 backdrop-blur-xl supports-[backdrop-filter]:bg-white/70">
-      <div className="flex h-[72px] items-center gap-4 px-5 lg:px-8">
+      <header className="sticky top-0 z-30 border-b border-[#dce8e5] bg-white/90 shadow-[0_6px_24px_rgba(16,60,71,0.045)] backdrop-blur-xl supports-[backdrop-filter]:bg-white/80">
+      <div className="flex h-[78px] items-center gap-4 px-4 sm:px-5 lg:px-8">
         {/* Mobile Menu Toggle */}
         <button
           onClick={onMenuToggle}
@@ -253,7 +253,7 @@ export function Header({
 
         {/* Title + Breadcrumb */}
         <div className="flex-1 min-w-0">
-          <h1 className="text-[17px] font-bold text-slate-900 leading-tight truncate tracking-tight">
+          <h1 className="text-[19px] font-extrabold text-[#132f38] leading-tight truncate tracking-tight sm:text-[21px]">
             {title}
           </h1>
           {breadcrumbs.length > 0 && (
@@ -264,7 +264,7 @@ export function Header({
                   {crumb.href ? (
                     <a
                       href={crumb.href}
-                      className="text-[12px] text-emerald-700 hover:text-emerald-900 hover:underline transition-colors"
+                      className="text-[12px] font-semibold text-[#0e7268] hover:text-[#103c47] hover:underline transition-colors"
                     >
                       {crumb.label}
                     </a>
@@ -280,7 +280,7 @@ export function Header({
         {/* Right Section */}
         <div className="flex items-center gap-3">
           {/* Date/Time */}
-          <span className="hidden xl:inline text-[12px] text-slate-400 whitespace-nowrap bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-100">
+          <span className="hidden xl:inline text-[12px] text-slate-500 whitespace-nowrap bg-[#f5f9f8] px-3.5 py-2 rounded-xl border border-[#e2ece9]">
             {datetime}
           </span>
 

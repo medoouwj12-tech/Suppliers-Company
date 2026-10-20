@@ -67,7 +67,7 @@ export default function RepDashboardPage() {
     <RepLayout>
       <div className="space-y-6 pb-4">
         {/* Welcome card */}
-        <div className="rounded-2xl p-6 text-white shadow-[0_4px_16px_rgba(30,58,95,0.25)]" style={{ background: 'linear-gradient(135deg, #1e3a5f 0%, #2a4a7a 100%)' }}>
+        <div className="rounded-2xl p-6 text-white shadow-[0_4px_16px_rgba(30,58,95,0.25)]" style={{ background: 'linear-gradient(135deg, #103c47 0%, #2a4a7a 100%)' }}>
           <div className="flex items-center justify-between">
             <div>
               <span className="text-[11px] text-blue-200/80 block">مرحباً بك</span>
@@ -104,7 +104,7 @@ export default function RepDashboardPage() {
           </Link>
 
           <Link href="/rep/collections" className="block">
-            <div className="w-full p-5 rounded-2xl shadow-[0_2px_12px_rgba(30,58,95,0.25)] flex flex-col items-center justify-center gap-2.5 transition-all active:scale-95 h-full" style={{ background: 'linear-gradient(135deg, #1e3a5f 0%, #2a4a7a 100%)' }}>
+            <div className="w-full p-5 rounded-2xl shadow-[0_2px_12px_rgba(30,58,95,0.25)] flex flex-col items-center justify-center gap-2.5 transition-all active:scale-95 h-full" style={{ background: 'linear-gradient(135deg, #103c47 0%, #2a4a7a 100%)' }}>
               <div className="h-11 w-11 rounded-xl bg-white/15 flex items-center justify-center">
                 <Wallet className="h-6 w-6 text-white" />
               </div>
@@ -135,7 +135,7 @@ export default function RepDashboardPage() {
             </div>
             <div className="text-left">
               <span className="text-[11px] text-slate-500 block mb-1">إجمالي الوحدات</span>
-              <span className="text-[17px] font-extrabold text-[#1e3a5f]">{totalCustodyUnits} وحدة</span>
+              <span className="text-[17px] font-extrabold text-[#103c47]">{totalCustodyUnits} وحدة</span>
             </div>
           </div>
         </div>

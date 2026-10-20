@@ -262,7 +262,7 @@ export default function SuppliersPage() {
           <div className="bg-white max-w-md w-full rounded-3xl p-6 shadow-2xl space-y-4 text-right">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                <Truck className="h-5 w-5 text-[#1e3a5f]" />
+                <Truck className="h-5 w-5 text-[#103c47]" />
                 إضافة مورد جديد
               </h3>
               <button onClick={() => setShowAddSupplierModal(false)} className="text-slate-400 hover:text-slate-700">
@@ -279,7 +279,7 @@ export default function SuppliersPage() {
                   placeholder="مثال: شركة صافولا للأغذية"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none"
+                  className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none"
                 />
               </div>
 
@@ -291,7 +291,7 @@ export default function SuppliersPage() {
                     placeholder="اسم المندوب أو المدير..."
                     value={formData.contactPerson}
                     onChange={(e) => setFormData({ ...formData, contactPerson: e.target.value })}
-                    className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none"
+                    className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none"
                   />
                 </div>
                 <div>
@@ -301,7 +301,7 @@ export default function SuppliersPage() {
                     placeholder="010..."
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none font-mono"
+                    className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none font-mono"
                   />
                 </div>
               </div>
@@ -313,7 +313,7 @@ export default function SuppliersPage() {
                   placeholder="المدينة الصناعية..."
                   value={formData.address}
                   onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                  className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none"
+                  className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none"
                 />
               </div>
 
@@ -324,7 +324,7 @@ export default function SuppliersPage() {
                   step="any"
                   value={formData.openingBalance}
                   onChange={(e) => setFormData({ ...formData, openingBalance: parseFloat(e.target.value) || 0 })}
-                  className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#1e3a5f] focus:outline-none font-mono"
+                  className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none font-mono"
                 />
               </div>
 

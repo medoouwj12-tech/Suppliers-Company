@@ -55,7 +55,7 @@ export default function RepInventoryPage() {
         </div>
 
         {/* Total Custody Summary Banner */}
-        <div className="rounded-2xl p-5 shadow-[0_2px_12px_rgba(30,58,95,0.25)] flex items-center justify-between" style={{ background: 'linear-gradient(135deg, #1e3a5f 0%, #2a4a7a 100%)' }}>
+        <div className="rounded-2xl p-5 shadow-[0_2px_12px_rgba(30,58,95,0.25)] flex items-center justify-between" style={{ background: 'linear-gradient(135deg, #103c47 0%, #2a4a7a 100%)' }}>
           <div>
             <span className="text-[11px] text-blue-200/80 block mb-1">إجمالي الوحدات في سيارتك</span>
             <span className="text-[22px] font-extrabold text-white">{totalUnits} وحدة</span>
@@ -74,7 +74,7 @@ export default function RepInventoryPage() {
             placeholder="ابحث في أصناف عهدتك..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pr-10 pl-4 py-3 text-[13px] border border-slate-200 rounded-xl focus:border-[#1e3a5f] focus:outline-none bg-white transition-colors"
+            className="w-full pr-10 pl-4 py-3 text-[13px] border border-slate-200 rounded-xl focus:border-[#103c47] focus:outline-none bg-white transition-colors"
           />
         </div>
 
@@ -117,7 +117,7 @@ export default function RepInventoryPage() {
                   </div>
                   <div>
                     <span className="text-slate-500 block text-[11px] mb-1">الوحدات المفردة:</span>
-                    <span className="font-extrabold text-[#1e3a5f] text-[16px] font-mono">
+                    <span className="font-extrabold text-[#103c47] text-[16px] font-mono">
                       {item.remainderUnits} {item.unitName}
                     </span>
                   </div>
