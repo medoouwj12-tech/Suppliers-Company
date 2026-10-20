@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useSession } from 'next-auth/react';
 import { AdminLayout } from '@/components/layout/admin-layout';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -11,13 +12,16 @@ import { formatCurrency } from '@/lib/utils';
 import { Package, Plus, Search, Filter, Edit2, AlertTriangle, RefreshCw, X } from 'lucide-react';
 
 export default function ProductsPage() {
+  const { data: session } = useSession();
   const { success, error: toastError } = useToast();
+  const isAdmin = (session?.user as { role?: string } | undefined)?.role === 'ADMIN';
   const [search, setSearch] = React.useState('');
   const [showAddModal, setShowAddModal] = React.useState(false);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   // Form fields
   const [formData, setFormData] = React.useState({
+    warehouseId: '',
     sku: '',
     name: '',
     brand: '',
@@ -29,6 +33,23 @@ export default function ProductsPage() {
     cartonName: 'كرتونة',
     minStockAlert: 10,
   });
+
+  const { data: warehouses, isLoading: isWarehousesLoading, isError: isWarehousesError } = useQuery({
+    queryKey: ['warehouses-for-product-form'],
+    queryFn: async () => {
+      const response = await fetch('/api/warehouses');
+      const body = await response.json();
+      if (!response.ok) throw new Error(body.error || 'فشل تحميل المخازن');
+      return body;
+    },
+  });
+  const activeWarehouses = warehouses?.filter((warehouse: any) => warehouse.status === 'ACTIVE') ?? [];
+
+  React.useEffect(() => {
+    if (!formData.warehouseId && activeWarehouses.length > 0) {
+      setFormData((current) => ({ ...current, warehouseId: activeWarehouses[0].id }));
+    }
+  }, [activeWarehouses, formData.warehouseId]);
 
   const { data, isLoading, refetch, isRefetching } = useQuery({
     queryKey: ['products-list', search],
@@ -56,6 +77,7 @@ export default function ProductsPage() {
       success('تم إضافة المنتج بنجاح!', resData.name);
       setShowAddModal(false);
       setFormData({
+        warehouseId: activeWarehouses[0]?.id ?? '',
         sku: '',
         name: '',
         brand: '',
@@ -101,9 +123,11 @@ export default function ProductsPage() {
             >
               تحديث
             </Button>
-            <Button size="sm" onClick={() => setShowAddModal(true)} leftIcon={<Plus className="h-4 w-4" />}>
-              إضافة صنف جديد
-            </Button>
+            {isAdmin && (
+              <Button size="sm" onClick={() => setShowAddModal(true)} leftIcon={<Plus className="h-4 w-4" />}>
+                إضافة صنف جديد
+              </Button>
+            )}
           </div>
         </div>
 
@@ -115,6 +139,7 @@ export default function ProductsPage() {
                 <TableHead>كود الصنف (SKU)</TableHead>
                 <TableHead>اسم الصنف</TableHead>
                 <TableHead>التصنيف</TableHead>
+                <TableHead>أماكن التخزين</TableHead>
                 <TableHead className="text-center">الوحدات بالكرتونة</TableHead>
                 <TableHead>سعر الشراء</TableHead>
                 <TableHead>سعر الكرتونة</TableHead>
@@ -126,13 +151,13 @@ export default function ProductsPage() {
             <TableBody>
               {isLoading ? (
                 <TableRow>
-                  <TableCell colSpan={9} className="text-center py-10 text-slate-400">
+                  <TableCell colSpan={10} className="text-center py-10 text-slate-400">
                     جاري تحميل الأصناف...
                   </TableCell>
                 </TableRow>
               ) : data?.data?.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={9} className="text-center py-10 text-slate-400">
+                  <TableCell colSpan={10} className="text-center py-10 text-slate-400">
                     لا توجد أصناف مطابقة للبحث
                   </TableCell>
                 </TableRow>
@@ -145,6 +170,13 @@ export default function ProductsPage() {
                       {p.brand && <span className="block text-xs text-slate-400 font-normal">{p.brand}</span>}
                     </TableCell>
                     <TableCell className="text-slate-600">{p.category?.name ?? 'عام'}</TableCell>
+                    <TableCell>
+                      <div className="flex min-w-32 flex-wrap gap-1.5">
+                        {p.stockBalances?.length ? p.stockBalances.map((balance: any) => (
+                          <Badge key={balance.id} variant="secondary">{balance.warehouse.name}</Badge>
+                        )) : <span className="text-slate-400">—</span>}
+                      </div>
+                    </TableCell>
                     <TableCell className="font-mono text-center font-bold">
                       {p.unitsPerCarton} {p.unitName} / {p.cartonName}
                     </TableCell>
@@ -178,7 +210,7 @@ export default function ProductsPage() {
       </div>
 
       {/* Add Product Modal */}
-      {showAddModal && (
+      {showAddModal && isAdmin && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-white max-w-lg w-full rounded-3xl p-6 shadow-2xl space-y-4 text-right max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
@@ -226,6 +258,34 @@ export default function ProductsPage() {
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   className="w-full p-2.5 text-xs border border-slate-300 rounded-xl focus:border-[#103c47] focus:outline-none"
                 />
+              </div>
+
+              <div>
+                <label htmlFor="new-product-warehouse" className="block text-sm font-bold text-slate-700 mb-2">
+                  المخزن الذي سيضاف إليه المنتج <span className="text-rose-600">*</span>
+                </label>
+                <select
+                  id="new-product-warehouse"
+                  required
+                  value={formData.warehouseId}
+                  onChange={(e) => setFormData({ ...formData, warehouseId: e.target.value })}
+                  disabled={isWarehousesLoading || activeWarehouses.length === 0}
+                  className="w-full rounded-xl border border-slate-300 bg-white px-3 py-3 text-sm text-slate-800 outline-none transition focus:border-[#0e7268] focus:ring-4 focus:ring-[#0e7268]/10 disabled:bg-slate-100"
+                >
+                  <option value="" disabled>
+                    {isWarehousesLoading ? 'جاري تحميل المخازن...' : 'اختر المخزن'}
+                  </option>
+                  {activeWarehouses.map((warehouse: any) => (
+                    <option key={warehouse.id} value={warehouse.id}>
+                      {warehouse.name} — {warehouse.code}
+                    </option>
+                  ))}
+                </select>
+                <p className="mt-1.5 text-xs text-slate-500">سيظهر المنتج في أرصدة المخزن المختار برصيد صفر، ويمكن توريد كميات إليه من المشتريات.</p>
+                {isWarehousesError && <p className="mt-1 text-xs font-semibold text-rose-600">تعذر تحميل المخازن. أغلق النافذة وحاول مرة أخرى.</p>}
+                {!isWarehousesLoading && !isWarehousesError && activeWarehouses.length === 0 && (
+                  <p className="mt-1 text-xs font-semibold text-amber-700">أضف مخزنًا نشطًا أولًا قبل تسجيل المنتج.</p>
+                )}
               </div>
 
               {/* Carton & Unit Packing (Critical core feature) */}
@@ -318,7 +378,7 @@ export default function ProductsPage() {
               </div>
 
               <div className="flex gap-2 pt-3 border-t border-slate-100">
-                <Button type="submit" loading={isSubmitting} className="flex-1">
+                <Button type="submit" loading={isSubmitting} disabled={activeWarehouses.length === 0 || isWarehousesError} className="flex-1">
                   حفظ الصنف
                 </Button>
                 <Button variant="outline" type="button" onClick={() => setShowAddModal(false)}>

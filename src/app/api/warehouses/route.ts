@@ -4,12 +4,12 @@ import { requireAuth, requireAdmin, handleApiError } from '@/lib/api-helpers';
 import { z } from 'zod';
 
 const createWarehouseSchema = z.object({
-  code: z.string().min(1, 'كود المخزن مطلوب'),
-  name: z.string().min(1, 'اسم المخزن مطلوب'),
-  address: z.string().optional().nullable(),
-  phone: z.string().optional().nullable(),
+  code: z.string().trim().min(1, 'كود المخزن مطلوب').max(20, 'كود المخزن طويل جدًا'),
+  name: z.string().trim().min(1, 'اسم المخزن مطلوب').max(100, 'اسم المخزن طويل جدًا'),
+  address: z.string().trim().max(200, 'العنوان طويل جدًا').optional().nullable(),
+  phone: z.string().trim().max(30, 'رقم الهاتف طويل جدًا').optional().nullable(),
   status: z.enum(['ACTIVE', 'INACTIVE']).default('ACTIVE'),
-  notes: z.string().optional().nullable(),
+  notes: z.string().trim().max(500, 'الملاحظات طويلة جدًا').optional().nullable(),
 });
 
 export async function GET() {
@@ -23,6 +23,12 @@ export async function GET() {
           select: {
             stockBalances: true,
             representatives: true,
+            stockMovements: true,
+            deliveryOrders: true,
+            purchaseInvoices: true,
+            transfers: true,
+            transfersTo: true,
+            returnItems: true,
           },
         },
       },
@@ -42,11 +48,6 @@ export async function POST(request: NextRequest) {
 
     const body = await request.json();
     const validated = createWarehouseSchema.parse(body);
-
-    const count = await prisma.warehouse.count();
-    if (count >= 5) {
-      return NextResponse.json({ error: 'الحد الأقصى للمخازن هو 5 مخازن' }, { status: 400 });
-    }
 
     const existing = await prisma.warehouse.findUnique({
       where: { code: validated.code },

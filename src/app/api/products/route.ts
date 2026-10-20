@@ -4,6 +4,7 @@ import { requireAuth, requireAdmin, handleApiError, getPaginationParams, paginat
 import { z } from 'zod';
 
 const createProductSchema = z.object({
+  warehouseId: z.string().min(1, 'اختر المخزن الذي سيضاف إليه المنتج'),
   sku: z.string().min(1, 'كود الصنف مطلوب'),
   name: z.string().min(1, 'اسم الصنف مطلوب'),
   nameAr: z.string().optional(),
@@ -86,6 +87,14 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const validated = createProductSchema.parse(body);
 
+    const warehouse = await prisma.warehouse.findUnique({
+      where: { id: validated.warehouseId },
+      select: { id: true, status: true },
+    });
+    if (!warehouse || warehouse.status !== 'ACTIVE') {
+      return NextResponse.json({ error: 'المخزن المحدد غير موجود أو غير نشط' }, { status: 400 });
+    }
+
     const existing = await prisma.product.findUnique({
       where: { sku: validated.sku },
     });
@@ -93,11 +102,18 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'كود الصنف (SKU) مستخدم بالفعل' }, { status: 400 });
     }
 
-    const product = await prisma.product.create({
-      data: validated,
-      include: {
-        category: true,
-      },
+    const { warehouseId, ...productData } = validated;
+    const product = await prisma.$transaction(async (transaction) => {
+      const createdProduct = await transaction.product.create({
+        data: productData,
+        include: { category: true },
+      });
+
+      await transaction.stockBalance.create({
+        data: { warehouseId, productId: createdProduct.id },
+      });
+
+      return createdProduct;
     });
 
     return NextResponse.json(product, { status: 201 });
